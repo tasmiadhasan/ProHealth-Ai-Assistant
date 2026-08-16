@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProHealth AI Assistant | Smart Hospital Portal & Instant Diagnosis</title>
+    <meta name="description" content="ProHealth AI Assistant - Advanced Clinical AI Instant Diagnosis and Smart Hospital Management Portal powered by Bio_ClinicalBERT.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- HTML2PDF CDN for Instant PDF Slip Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Google Identity Services (Official Google Sign-In) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- ========================================================= -->
+    <!-- 1. TOP ANNOUNCEMENT & EMERGENCY BAR                       -->
+    <!-- ========================================================= -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="emergency-badge">
+                <span class="pulse-dot"></span>
+                <span id="topEmergencyText">24/7 Trauma & Emergency Center Active</span>
+            </div>
+            <div class="top-contacts">
+                <span id="topHotlineText"><i class="fa-solid fa-phone-volume"></i> Emergency Hotline: <strong>10666</strong></span>
+                <span id="topAmbulanceText"><i class="fa-solid fa-truck-medical"></i> Ambulance: <strong>+880 1999-000000</strong></span>
+                <div class="lang-switch">
+                    <button class="lang-btn" id="langBnBtn" onclick="switchLanguage('bn')">বাংলা</button>
+                    <button class="lang-btn active" id="langEnBtn" onclick="switchLanguage('en')">English</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- 2. MAIN NAVBAR                                            -->
+    <!-- ========================================================= -->
+    <header class="navbar-header" id="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="brand-logo">
+                <div class="logo-icon">
+                    <img src="/static/images/medical-symbol.png" alt="ProHealth" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">ProHealth</span>
+                    <span class="logo-sub">AI ASSISTANT</span>
+                </div>
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#hero" class="nav-link active" id="navHome"><i class="fa-solid fa-house"></i> <span>Home</span></a>
+                <a href="#ai-triage" class="nav-link highlight-link" id="navTriage"><i class="fa-solid fa-wand-magic-sparkles"></i> <span>Instant Diagnosis</span></a>
+                <a href="#doctors" class="nav-link" id="navDoctors"><i class="fa-solid fa-user-doctor"></i> <span>Doctor Directory</span></a>
+                <a href="#facilities" class="nav-link" id="navFacilities"><i class="fa-solid fa-hospital"></i> <span>Facilities & Care</span></a>
+                <a href="#about" class="nav-link" id="navAbout"><i class="fa-solid fa-circle-info"></i> <span>About AI</span></a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="btn btn-outline" id="themeToggleBtn" onclick="toggleTheme()" style="padding: 0.5rem; margin-right: 0.4rem;" title="Toggle Light/Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                
+                <!-- Google Sign-In / Patient Profile Badge in Navbar -->
+                <div id="googleAuthNav" class="google-auth-nav">
+                    <div id="g_id_signin_container"></div>
+                </div>
+
+                <button class="btn btn-primary" id="navBookBtn" onclick="openAppointmentModal()">
+                    <i class="fa-regular fa-calendar-check"></i> <span id="navBookText">Book Appointment</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================= -->
+    <!-- 3. HERO SLIDESHOW SECTION                                 -->
+    <!-- ========================================================= -->
+    <section class="hero-section" id="hero">
+        <div class="slider-container" id="hero-slider">
+            <!-- Slide 1: AI Triage -->
+            <div class="slide active">
+                <div class="slide-overlay"></div>
+                <div class="container slide-content">
+                    <div class="hero-tag" id="slide1Tag"><i class="fa-solid fa-robot"></i> Bio_ClinicalBERT Powered AI</div>
+                    <h1 class="hero-title" id="slide1Title">আপনার লক্ষণ বলুন, সঠিক ডাক্তার ও বিভাগ খুঁজে দেবে <span>ProHealth AI</span></h1>
+                    <p class="hero-desc" id="slide1Desc">বাংলা, বাংলিশ অথবা ইংরেজিতে আপনার শারীরিক সমস্যার কথা লিখুন। আমাদের অত্যাধুনিক মেডিকেল এআই তাৎক্ষণিক সঠিক বিভাগ ও বিশেষজ্ঞ ডাক্তার নির্ধারণ করবে।</p>
+                    <div class="hero-cta-group">
+                        <a href="#ai-triage" class="btn btn-accent btn-lg" id="slide1Cta1"><i class="fa-solid fa-wand-magic-sparkles"></i> বিনামূল্যে এআই ডায়াগনোসিস করুন</a>
+                        <a href="#doctors" class="btn btn-outline btn-lg" id="slide1Cta2"><i class="fa-solid fa-stethoscope"></i> বিশেষজ্ঞ তালিকা দেখুন</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Cardiology & Critical Care -->
+            <div class="slide">
+                <div class="slide-overlay"></div>
+                <div class="container slide-content">
+                    <div class="hero-tag" id="slide2Tag"><i class="fa-solid fa-heart-circle-bolt"></i> 24/7 Advanced Cath-Lab & ICU</div>
+                    <h1 class="hero-title" id="slide2Title">বিশ্বমানের হৃদরোগ চিকিৎসা ও <span>ইন্টেনসিভ কেয়ার ইউনিট</span></h1>
+                    <p class="hero-desc" id="slide2Desc">দক্ষ কার্ডিওলজিস্ট ও পালমোনোলজিস্টদের তত্ত্বাবধানে সর্বাধুনিক ইকুইপমেন্ট সম্বলিত ডেডিকেটেড সিসিইউ ও জরুরি ট্রমা সেবা।</p>
+                    <div class="hero-cta-group">
+                        <button class="btn btn-accent btn-lg" id="slide2Cta1" onclick="filterDeptAndScroll('cardiology')"><i class="fa-solid fa-user-doctor"></i> কার্ডিওলজি ডাক্তার দেখুন</button>
+                        <a href="tel:10666" class="btn btn-emergency btn-lg" id="slide2Cta2"><i class="fa-solid fa-phone"></i> জরুরি কল: 10666</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Orthopedics & Spine -->
+            <div class="slide">
+                <div class="slide-overlay"></div>
+                <div class="container slide-content">
+                    <div class="hero-tag" id="slide3Tag"><i class="fa-solid fa-bone"></i> Joint & Spine Reconstruction</div>
+                    <h1 class="hero-title" id="slide3Title">হাড়, জয়েন্ট ও মেরুদণ্ডের সর্বাধুনিক <span>অর্থোপেডিক সার্জারি</span></h1>
+                    <p class="hero-desc" id="slide3Desc">কম্পিউটার-গাইডেড জয়েন্ট প্রতিস্থাপন, স্পোর্টস ইনজুরি ও ট্রমা ম্যানেজমেন্টে আন্তর্জাতিক মানের বিশেষজ্ঞ টিম।</p>
+                    <div class="hero-cta-group">
+                        <button class="btn btn-accent btn-lg" id="slide3Cta1" onclick="filterDeptAndScroll('orthopedics')"><i class="fa-solid fa-user-doctor"></i> অর্থোপেডিকস বিভাগ</button>
+                        <a href="#facilities" class="btn btn-outline btn-lg" id="slide3Cta2"><i class="fa-solid fa-building-circle-check"></i> আধুনিক ওটি দেখুন</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Pediatric & Mother Care -->
+            <div class="slide">
+                <div class="slide-overlay"></div>
+                <div class="container slide-content">
+                    <div class="hero-tag" id="slide4Tag"><i class="fa-solid fa-baby"></i> Child & Mother Care Center</div>
+                    <h1 class="hero-title" id="slide4Title">মা ও শিশুর জন্য মমতাময়ী ও <span>বিশেষায়িত স্বাস্থ্যসেবা</span></h1>
+                    <p class="hero-desc" id="slide4Desc">নবজাতক আইসিইউ (NICU), শিশু বিশেষজ্ঞ ও অভিজ্ঞ গাইনিকোলজিস্টদের সার্বক্ষণিক সেবা ও মনিটরিং।</p>
+                    <div class="hero-cta-group">
+                        <button class="btn btn-accent btn-lg" id="slide4Cta1" onclick="filterDeptAndScroll('pediatrics')"><i class="fa-solid fa-hands-holding-child"></i> পেডিয়াট্রিক্স কেয়ার</button>
+                        <a href="#ai-triage" class="btn btn-outline btn-lg" id="slide4Cta2"><i class="fa-solid fa-magnifying-glass"></i> লক্ষণ যাচাই করুন</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider Controls -->
+        <button class="slider-btn prev-btn" id="prevSlide" aria-label="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="slider-btn next-btn" id="nextSlide" aria-label="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="slider-dots" id="sliderDots"></div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 4. LIVE STATS COUNTER BAR                                 -->
+    <!-- ========================================================= -->
+    <section class="stats-bar">
+        <div class="container stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-hospital-user"></i></div>
+                <div class="stat-info">
+                    <h3 class="counter" data-target="25">25+</h3>
+                    <p id="stat1Label">বিশেষায়িত বিভাগ (Departments)</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                <div class="stat-info">
+                    <h3 class="counter" data-target="120">120+</h3>
+                    <p id="stat2Label">অভিজ্ঞ বিশেষজ্ঞ ডাক্তার (Specialists)</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-microchip"></i></div>
+                <div class="stat-info">
+                    <h3 class="counter" data-target="18500">18,500+</h3>
+                    <p id="stat3Label">সফল এআই ডায়াগনোসিস রেফারেল</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                <div class="stat-info">
+                    <h3>99.4%</h3>
+                    <p id="stat4Label">রোগী সন্তুষ্টির হার (Satisfaction)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 5. AI SMART TRIAGE & CONSULTATION SECTION                 -->
+    <!-- ========================================================= -->
+    <section class="ai-triage-section" id="ai-triage">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-badge" id="triageSecBadge"><i class="fa-solid fa-brain"></i> Intelligent Instant Diagnosis</div>
+                <h2 class="section-title" id="triageSecTitle">আপনার সমস্যার জন্য দ্রুত সমাধান নিন</h2>
+                <p class="section-subtitle" id="triageSecSubtitle">বাংলা, বাংলিশ বা ইংরেজিতে আপনার শারীরিক সমস্যা বা লক্ষণের বিবরণ দিন। আমাদের Bio_ClinicalBERT এআই মুহূর্তেই আপনাকে সঠিক বিভাগ ও পরামর্শক ডাক্তার সাজেস্ট করবে।</p>
+            </div>
+
+            <div class="triage-wrapper">
+                <!-- Left Input Box -->
+                <div class="triage-input-card">
+                    <div class="input-card-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span id="symptomBoxTitle">রোগীর অভিযোগ / লক্ষণের বিবরণ (Patient Symptoms)</span>
+                        </div>
+                        <div class="header-right">
+                            <button class="voice-btn" id="voiceInputBtn" title="মুখে কথা বলে লিখুন (Speech to Text)">
+                                <i class="fa-solid fa-microphone"></i> <span id="voiceBtnText">ভয়েস ইনপুট</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="textarea-container">
+                        <textarea id="symptomInput" placeholder="উদাহরণ: আমার ২ দিন ধরে প্রচণ্ড বুকে ব্যথা হচ্ছে এবং শ্বাস নিতে কষ্ট হচ্ছে... অথবা 'amar matha ghure r bomi hocche' অথবা 'Severe knee pain after injury'"></textarea>
+                    </div>
+
+                    <!-- Quick Sample Chips -->
+                    <div class="sample-chips-wrapper">
+                        <span class="chips-label" id="sampleChipsLabel"><i class="fa-regular fa-lightbulb"></i> দ্রুত নমুনা ট্রাই করুন:</span>
+                        <div class="chips-container" id="chipsContainer">
+                            <!-- Populated dynamically based on language -->
+                        </div>
+                    </div>
+
+                    <div class="triage-action-bar">
+                        <button class="btn btn-outline" id="clearBtn" onclick="clearInput()">
+                            <i class="fa-solid fa-rotate-left"></i> <span id="clearBtnText">ক্লিয়ার</span>
+                        </button>
+                        <button class="btn btn-accent btn-lg" id="analyzeBtn" onclick="analyzeSymptoms()">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="analyzeBtnText">এআই দিয়ে বিশ্লেষণ করুন</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Output / Diagnosis Card -->
+                <div class="triage-result-card" id="triageResultCard">
+                    <!-- Default Empty State -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                        <h3 id="emptyTitle">আপনার লক্ষণের জন্য অপেক্ষা করা হচ্ছে</h3>
+                        <p id="emptyDesc">বাম পাশের বক্সে সমস্যা লিখে <strong>"এআই দিয়ে বিশ্লেষণ করুন"</strong> বাটনে চাপুন। তাৎক্ষণিক ক্লিনিক্যাল ডায়াগনোসিস রিপোর্ট এখানে প্রদর্শিত হবে।</p>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div class="loading-state" id="loadingState" style="display: none;">
+                        <div class="heartbeat-loader">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <h3 id="loadingTitle">Bio_ClinicalBERT মডেল বিশ্লেষণ করছে...</h3>
+                        <p id="loadingDesc">ভাষা শনাক্তকরণ, মেডিকেল অ্যান্টোলজি ম্যাপিং এবং ইমার্জেন্সি লেভেল প্রসেস হচ্ছে...</p>
+                    </div>
+
+                    <!-- Populated Result State -->
+                    <div class="result-content" id="resultContent" style="display: none;">
+                        <div class="result-top-banner" id="triageBanner">
+                            <div class="triage-badge" id="triageBadge">
+                                <i class="fa-solid fa-triangle-exclamation" id="triageIcon"></i>
+                                <span id="triageLevelText">জরুরি ইমার্জেন্সি লেভেল</span>
+                            </div>
+                            <div class="confidence-badge" id="confidenceBadge">
+                                <i class="fa-solid fa-circle-check"></i> <span id="confidenceText">Confidence: 94%</span>
+                            </div>
+                        </div>
+
+                        <!-- Recommendation Main Box -->
+                        <div class="dept-recommendation-box">
+                            <div class="dept-meta" id="resDeptMeta">প্রস্তাবিত মেডিকেল বিভাগ (Recommended Department):</div>
+                            <h2 class="recommended-dept-title" id="deptTitleBn">কার্ডিওলজি ও পালমোনোলজি বিভাগ</h2>
+                            <div class="recommended-dept-en" id="deptTitleEn">Cardiology & Pulmonology Department</div>
+
+                            <div class="specialist-callout">
+                                <div class="specialist-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                                <div>
+                                    <div class="spec-label" id="resSpecMeta">পরামর্শক বিশেষজ্ঞ (Suggested Doctor):</div>
+                                    <div class="spec-name" id="specialistName">কার্ডিওলজিস্ট / বক্ষব্যাধি বিশেষজ্ঞ (Cardiologist)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top 3 Probability Breakdown -->
+                        <div class="prob-section">
+                            <h4 id="resProbTitle"><i class="fa-solid fa-chart-column"></i> শীর্ষ ৩টি সম্ভাব্য বিভাগ ও সম্ভাব্যতা:</h4>
+                            <div class="prob-bars" id="probBarsContainer">
+                                <!-- Dynamic progress bars injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Triage Advice & Emergency Instructions -->
+                        <div class="advice-box" id="adviceBox">
+                            <div class="advice-header" id="resAdviceHeader"><i class="fa-solid fa-circle-info"></i> তাৎক্ষণিক ক্লিনিক্যাল পরামর্শ:</div>
+                            <p id="adviceText">রোগীর লক্ষণ অনুযায়ী অতি দ্রুত সংশ্লিষ্ট বিভাগের ডাক্তারের পরামর্শ নেওয়া উচিত।</p>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="result-actions">
+                            <button class="btn btn-outline" id="downloadSlipBtn" onclick="downloadReferralSlipPDF()">
+                                <i class="fa-solid fa-file-pdf"></i> <span id="pdfBtnText">অফিসিয়াল PDF টিকেট ডাউনলোড</span>
+                            </button>
+                            <button class="btn btn-primary" id="directBookBtn" onclick="bookWithPredictedDept()">
+                                <i class="fa-regular fa-calendar-check"></i> <span id="bookDocBtnText">এই বিভাগে ডাক্তার বুক করুন</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 6. DOCTORS DIRECTORY & DEPARTMENT TABS                     -->
+    <!-- ========================================================= -->
+    <section class="doctors-section" id="doctors">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-badge" id="docSecBadge"><i class="fa-solid fa-user-doctor"></i> Specialist Directory</div>
+                <h2 class="section-title" id="docSecTitle">আমাদের অভিজ্ঞ বিশেষজ্ঞ ডাক্তারবৃন্দ</h2>
+                <p class="section-subtitle" id="docSecSubtitle">আপনার প্রয়োজনীয় বিভাগ নির্বাচন করে ডাক্তারদের সময়সূচি, যোগ্যতা ও ভিজিটিং ফি দেখুন এবং সরাসরি অ্যাপয়েন্টমেন্ট নিন।</p>
+            </div>
+
+            <!-- Department Filter Tabs -->
+            <div class="dept-tabs-wrapper">
+                <div class="dept-tabs" id="deptTabs">
+                    <button class="tab-btn active" data-dept="all" id="tabAll">সকল বিভাগ (All)</button>
+                    <button class="tab-btn" data-dept="cardiology" id="tabCardiology">কার্ডিওলজি (Cardiology)</button>
+                    <button class="tab-btn" data-dept="orthopedics" id="tabOrthopedics">অর্থোপেডিকস (Orthopedics)</button>
+                    <button class="tab-btn" data-dept="neurology" id="tabNeurology">নিউরোলজি (Neurology)</button>
+                    <button class="tab-btn" data-dept="gastroenterology" id="tabGastro">গ্যাস্ট্রোএন্টারোলজি (Gastro)</button>
+                    <button class="tab-btn" data-dept="dermatology" id="tabDermatology">ডার্মাটোলজি (Dermatology)</button>
+                    <button class="tab-btn" data-dept="pediatrics" id="tabPediatrics">শিশু রোগ (Pediatrics)</button>
+                    <button class="tab-btn" data-dept="gynecology" id="tabGynecology">গাইনিকোলজি (Gynecology)</button>
+                    <button class="tab-btn" data-dept="ent" id="tabEnt">ইএনটি / নাক কান গলা (ENT)</button>
+                    <button class="tab-btn" data-dept="urology" id="tabUrology">ইউরোলজি ও কিডনি (Urology)</button>
+                    <button class="tab-btn" data-dept="general" id="tabGeneral">জেনারেল মেডিসিন (Medicine)</button>
+                </div>
+            </div>
+
+            <!-- Doctor Cards Grid -->
+            <div class="doctors-grid" id="doctorsGrid">
+                <!-- Dynamically populated from /api/doctors -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 7. HOSPITAL FACILITIES & SERVICES                         -->
+    <!-- ========================================================= -->
+    <section class="facilities-section" id="facilities">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-badge" id="facSecBadge"><i class="fa-solid fa-hospital"></i> Infrastructure & Care</div>
+                <h2 class="section-title" id="facSecTitle">অত্যাধুনিক চিকিৎসা ও হাসপাতালের সুবিধাসমূহ</h2>
+                <p class="section-subtitle" id="facSecSubtitle">আন্তর্জাতিক মানের স্বাস্থ্যসেবা নিশ্চিত করতে আমাদের রয়েছে পূর্ণাঙ্গ ও হাই-টেক মেডিকেল সুযোগ-সুবিধা।</p>
+            </div>
+
+            <div class="facilities-grid" id="facilitiesGrid">
+                <!-- Dynamically populated from /api/facilities -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 8. ABOUT & CLINICAL AI TRANSPARENCY                       -->
+    <!-- ========================================================= -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-card">
+                <div class="about-content">
+                    <div class="section-badge" id="aboutBadge"><i class="fa-solid fa-shield-halved"></i> AI Transparency & Safety</div>
+                    <h2 id="aboutTitle">কীভাবে কাজ করে ProHealth AI Assistant?</h2>
+                    <p id="aboutDesc">আমাদের সিস্টেমটি <strong>Bio_ClinicalBERT</strong> ট্রান্সফরমার আর্কিটেকচার এবং ক্লিনিক্যাল ডায়াগনোসিস নলেজবেসের উপর ভিত্তি করে নির্মিত। এটি রোগীর প্রাকৃতিক ভাষার অভিযোগ (যেমন: বাংলা, বাংলিশ ও ইংরেজি) প্রসেস করে এবং উপসর্গগুলোকে যথাযথ মেডিকেল বিভাগে ক্লাসিফাই করে।</p>
+                    
+                    <div class="about-features-list">
+                        <div class="feat-item">
+                            <i class="fa-solid fa-check-circle"></i>
+                            <div id="feat1"><strong>বহুভাষিক প্রসেসিং:</strong> বাংলা ও বাংলিশ শব্দগুলোকে ক্লিনিক্যাল পরিভাষায় রূপান্তর করে সঠিক ফলাফল দেয়।</div>
+                        </div>
+                        <div class="feat-item">
+                            <i class="fa-solid fa-check-circle"></i>
+                            <div id="feat2"><strong>স্বয়ংক্রিয় ইমার্জেন্সি ডিটেকশন:</strong> হার্ট অ্যাটাক, স্ট্রোক বা তীব্র শ্বাসকষ্টের মতো রেড-ফ্ল্যাগ লক্ষণ দেখলে তৎক্ষণাৎ লেভেল ১ ইমার্জেন্সি অ্যালার্ট দেয়।</div>
+                        </div>
+                        <div class="feat-item">
+                            <i class="fa-solid fa-check-circle"></i>
+                            <div id="feat3"><strong>হাসপাতাল রিসোর্স অপ্টিমাইজেশন:</strong> রোগীকে সঠিক ডাক্তারের কাছে পৌঁছে দিয়ে সময় ও খরচ বাঁচায়।</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-badge-box">
+                    <div class="ai-chip-visual">
+                        <i class="fa-solid fa-microchip"></i>
+                        <h3>Bio_ClinicalBERT</h3>
+                        <span id="chipSubText">13 Core Medical Departments</span>
+                        <div class="chip-metric">99.4% Accuracy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- SIGN IN PROMPT MODAL (Google Authentication Dialog)       -->
+    <!-- ========================================================= -->
+    <div class="modal-backdrop" id="signInPromptModal">
+        <div class="modal-dialog sign-in-modal-dialog">
+            <div class="sign-in-modal-content">
+                <button class="btn-close sign-in-close-btn" onclick="closeSignInPrompt()"><i class="fa-solid fa-xmark"></i></button>
+                <div class="sign-in-hero-icon">
+                    <div class="google-icon-circle">
+                        <i class="fa-brands fa-google"></i>
+                    </div>
+                </div>
+                <h3 id="signInModalTitle">গুগল দিয়ে সাইন ইন করুন</h3>
+                <p id="signInModalDesc">ডাক্তার অ্যাপয়েন্টমেন্ট বুকিং করতে এবং আপনার পূর্বের বুকিং হিস্ট্রি সংরক্ষণ করতে গুগল অ্যাকাউন্ট দিয়ে সাইন ইন করুন।</p>
+                
+                <div class="google-btn-wrapper">
+                    <div id="g_id_modal_signin_btn"></div>
+                </div>
+
+                <div class="sign-in-features">
+                    <div class="sign-in-feat-item">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span id="signInFeat1">১০০% নিরাপদ ও ভেরিফাইড গুগল অথেন্টিকেশন</span>
+                    </div>
+                    <div class="sign-in-feat-item">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <span id="signInFeat2">১-ক্লিকে তাৎক্ষণিক অ্যাপয়েন্টমেন্ট বুকিং সুবিধা</span>
+                    </div>
+                    <div class="sign-in-feat-item">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span id="signInFeat3">সকল পূর্বের অ্যাপয়েন্টমেন্ট ও প্রেস্ক্রিপশন হিস্ট্রি</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- USER DASHBOARD MODAL (Google Profile & My Appointments)   -->
+    <!-- ========================================================= -->
+    <div class="modal-backdrop" id="userDashboardModal">
+        <div class="modal-dialog user-dashboard-dialog">
+            <!-- Modal Header -->
+            <div class="user-dashboard-header">
+                <div class="user-profile-summary">
+                    <div class="user-avatar-wrap">
+                        <img id="dashUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="User Avatar">
+                        <span class="user-online-status"></span>
+                    </div>
+                    <div class="user-details">
+                        <h3 id="dashUserName">Google Patient</h3>
+                        <p id="dashUserEmail"><i class="fa-regular fa-envelope"></i> patient@gmail.com</p>
+                        <div class="user-badges">
+                            <span class="user-badge-tag"><i class="fa-brands fa-google"></i> <span id="dashVerifiedBadge">Verified Google Patient</span></span>
+                            <span class="user-badge-tag highlight" id="dashBookingCountBadge"><i class="fa-regular fa-calendar-check"></i> <span id="dashBookingCountText">0 Appointments</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right-actions">
+                    <button class="btn btn-sm btn-outline-danger" id="dashSignOutBtn" onclick="handleGoogleSignOut()">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> <span id="dashSignOutText">Sign Out</span>
+                    </button>
+                    <button class="btn-close" onclick="closeUserDashboard()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+
+            <!-- Dashboard Content: My Appointments List -->
+            <div class="dashboard-tab-content active" id="dashTabBookings">
+                <div class="dash-section-header">
+                    <h4 id="dashHistoryTitle"><i class="fa-solid fa-calendar-days"></i> আমার অ্যাপয়েন্টমেন্ট হিস্ট্রি (My Appointments)</h4>
+                    <button class="btn btn-sm btn-outline" id="dashRefreshBtn" onclick="loadUserAppointments()"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+                </div>
+                <div class="user-appointments-container" id="userAppointmentsContainer">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- 9. APPOINTMENT BOOKING MODAL                              -->
+    <!-- ========================================================= -->
+    <div class="modal-backdrop" id="appointmentModal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <h3 id="modalHeaderTitle">ডাক্তার অ্যাপয়েন্টমেন্ট বুকিং</h3>
+                </div>
+                <button class="modal-close" onclick="closeAppointmentModal()">&times;</button>
+            </div>
+            
+            <form id="appointmentForm" onsubmit="submitAppointment(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label id="lblPatientName">রোগীর পুরো নাম (Patient Full Name) *</label>
+                        <input type="text" id="patientName" required placeholder="উদাহরণ: মোঃ জামিল হোসেন">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label id="lblPhone">মোবাইল নম্বর (Phone Number) *</label>
+                            <input type="tel" id="patientPhone" required placeholder="017XXXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label id="lblAge">রোগীর বয়স (Age)</label>
+                            <input type="number" id="patientAge" placeholder="যেমন: 35">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="lblDept">মেডিকেল বিভাগ (Department) *</label>
+                        <select id="modalDeptSelect" required onchange="updateModalDoctorOptions()">
+                            <option value="Cardiology & Pulmonology">কার্ডিওলজি ও পালমোনোলজি (Cardiology & Pulmonology)</option>
+                            <option value="Orthopedics">অর্থোপেডিকস (Orthopedics)</option>
+                            <option value="Neurology">নিউরোলজি (Neurology)</option>
+                            <option value="Gastroenterology">গ্যাস্ট্রোএন্টারোলজি (Gastroenterology)</option>
+                            <option value="Dermatology">ডার্মাটোলজি (Dermatology)</option>
+                            <option value="Pediatrics">পেডিয়াট্রিক্স (Pediatrics)</option>
+                            <option value="Gynecology & Obstetrics">গাইনিকোলজি ও অবস (Gynecology)</option>
+                            <option value="ENT (Otolaryngology)">ইএনটি / নাক কান গলা (ENT)</option>
+                            <option value="Urology & Nephrology">ইউরোলজি ও কিডনি (Urology)</option>
+                            <option value="General Medicine">জেনারেল মেডিসিন (General Medicine)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="lblDoctor">পছন্দের ডাক্তার (Select Doctor)</label>
+                        <select id="modalDoctorSelect">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="lblDate">অ্যাপয়েন্টমেন্টের তারিখ (Preferred Date) *</label>
+                        <input type="date" id="appointmentDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="lblSymptoms">সংক্ষিপ্ত সমস্যা বা উপসর্গ (Brief Symptoms)</label>
+                        <input type="text" id="modalSymptoms" placeholder="যেমন: তীব্র বুকে ব্যথা ও কাশি">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" id="modalCancelBtn" onclick="closeAppointmentModal()">বাতিল</button>
+                    <button type="submit" class="btn btn-accent" id="modalSubmitBtn"><i class="fa-solid fa-check"></i> নিশ্চিত করুন (Confirm Booking)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Booking Confirmation Modal -->
+    <div class="modal-backdrop" id="confirmationModal">
+        <div class="modal-dialog confirmation-dialog">
+            <div class="confirmation-content text-center">
+                <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <h2 id="confirmSuccessTitle">অ্যাপয়েন্টমেন্ট বুকিং সম্পন্ন হয়েছে!</h2>
+                <p id="confirmCodeLabel">আপনার বুকিং কনফার্মেশন কোড:</p>
+                <div class="ticket-code" id="confirmTicketId">PH-A89F2C</div>
+                
+                <div class="ticket-details-box" id="confirmDetailsBox">
+                    <!-- Dynamic details -->
+                </div>
+
+                <div class="modal-actions" style="display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap;">
+                    <button class="btn btn-accent" id="confirmViewDashBtn" onclick="closeConfirmationModal(); openUserDashboard();">
+                        <i class="fa-solid fa-calendar-check"></i> <span id="confirmViewDashText">আমার বুকিং তালিকায় দেখুন (View Appointments)</span>
+                    </button>
+                    <button class="btn btn-outline" id="confirmDoneBtn" onclick="closeConfirmationModal()">ঠিক আছে (Close)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Printable PDF Slip Template for html2pdf -->
+    <div id="pdfPrintableTemplate" style="display: none;"></div>
+
+    <!-- ========================================================= -->
+    <!-- 10. FOOTER                                                -->
+    <!-- ========================================================= -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-col brand-col">
+                <div class="brand-logo">
+                    <div class="logo-icon"><img src="/static/images/medical-symbol.png" alt="ProHealth"></div>
+                    <div class="logo-text">
+                        <span class="logo-title">ProHealth</span>
+                        <span class="logo-sub">AI ASSISTANT</span>
+                    </div>
+                </div>
+                <p class="footer-desc" id="footerDesc">আধুনিক কৃত্রিম বুদ্ধিমত্তা ও ক্লিনিক্যাল এক্সিলেন্সের সমন্বয়ে প্রস্তুতকৃত স্মার্ট হাসপাতাল পোর্টাল ও ডায়াগনোসিস সিস্টেম।</p>
+            </div>
+
+            <div class="footer-col">
+                <h4 id="footerEmergencyHeader">জরুরি যোগাযোগ (Emergency)</h4>
+                <ul class="footer-links">
+                    <li><i class="fa-solid fa-phone"></i> <strong>২৪/৭ হটলাইন:</strong> 10666</li>
+                    <li><i class="fa-solid fa-truck-medical"></i> <strong>অ্যাম্বুলেন্স:</strong> +880 1999-000000</li>
+                    <li><i class="fa-solid fa-envelope"></i> emergency@prohealth.hospital</li>
+                    <li id="footerAddress"><i class="fa-solid fa-location-dot"></i> প্লট ১৫, রোড ৭১, গুলশান-২, ঢাকা ১২১২</li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 id="footerDeptsHeader">বিশেষায়িত বিভাগসমূহ</h4>
+                <ul class="footer-links" id="footerDeptLinks">
+                    <li><a href="#doctors" onclick="filterDeptAndScroll('cardiology')">কার্ডিওলজি ও পালমোনোলজি</a></li>
+                    <li><a href="#doctors" onclick="filterDeptAndScroll('orthopedics')">অর্থোপেডিকস ও ট্রমা সার্জারি</a></li>
+                    <li><a href="#doctors" onclick="filterDeptAndScroll('neurology')">নিউরোলজি ও স্ট্রোক কেয়ার</a></li>
+                    <li><a href="#doctors" onclick="filterDeptAndScroll('pediatrics')">শিশু ও নবজাতক বিভাগ</a></li>
+                    <li><a href="#doctors" onclick="filterDeptAndScroll('gastroenterology')">গ্যাস্ট্রোএন্টারোলজি</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 id="footerHoursHeader">হাসপাতাল খোলার সময়</h4>
+                <p id="footerOpdHours"><strong>বহির্বিভাগ (OPD):</strong><br>শনিবার - বৃহস্পতিবার: ৮:০০ AM - ১০:০০ PM<br>শুক্রবার: ৩:০০ PM - ৯:০০ PM</p>
+                <p id="footerEmergencyHours"><strong>জরুরি বিভাগ (Emergency):</strong><br><span class="badge-active">২৪ ঘণ্টা খোলা (24 Hours Open)</span></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-content">
+                <p id="footerCopyright">© 2026 ProHealth AI Assistant. All Rights Reserved. Built with Bio_ClinicalBERT & FastAPI.</p>
+                <p class="disclaimer" id="footerDisclaimer">Disclaimer: এই এআই ডায়াগনোসিস সিস্টেমটি প্রাথমিক রেফারেল সহায়তার জন্য। জরুরি অবস্থায় অবিলম্বে হাসপাতালের জরুরি বিভাগে যোগাযোগ করুন।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
