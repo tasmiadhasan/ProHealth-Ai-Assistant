@@ -1,10 +1,14 @@
 # 🏥 ProHealth AI Assistant | Intelligent Hospital Portal & Bio_ClinicalBERT Triage System
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render.com-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://prohealth-ai-assistant.onrender.com/)
 [![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C.svg?style=for-the-badge&logo=pytorch)](https://pytorch.org/)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-Transformers-FFD21E.svg?style=for-the-badge&logo=huggingface)](https://huggingface.co/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Modern%20Web%20Portal-009688.svg?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+
+> 🌐 **Live Web Application URL:** [https://prohealth-ai-assistant.onrender.com/](https://prohealth-ai-assistant.onrender.com/)  
+> 🏥 **Official Portal:** Intelligent Multilingual Hospital Triage, Bio_ClinicalBERT Referral, Google OAuth Patient Dashboard & Instant PDF Referral Slip Generation.
 
 ---
 
@@ -328,19 +332,62 @@ plotly>=5.18.0
 SpeechRecognition>=3.10.0
 ```
 
----
+## 📈 10. Evaluation Metrics & Classification Report
 
-## 📈 10. Evaluation Metrics & Performance
+The fine-tuned **Bio_ClinicalBERT** model was rigorously evaluated on the multi-class test dataset across 13 clinical specialties.
 
-The model evaluation is carried out on a holdout test split (20%) using the following clinical evaluation benchmarks:
+### 📑 A. Detailed Classification Report
 
-| Metric | Score (Bio_ClinicalBERT) | Score (DistilBERT) | Baseline (TF-IDF + Logistic Regression) |
-| :--- | :---: | :---: | :---: |
-| **Accuracy** | **94.2%** | 91.8% | 81.5% |
-| **Precision (Weighted)** | **94.5%** | 92.1% | 82.0% |
-| **Recall (Weighted)** | **94.2%** | 91.8% | 81.5% |
-| **Macro F1-Score** | **93.8%** | 91.2% | 79.8% |
-| **Inference Latency** | **~42ms / request** | **~22ms / request** | ~5ms / request |
+```text
+📑 Classification Report:
+
+                                precision    recall  f1-score   support
+
+      Cardiology & Pulmonology       0.76      0.84      0.79        37
+                   Dermatology       1.00      0.67      0.80         3
+          ENT (Otolaryngology)       0.88      0.70      0.78        10
+              Gastroenterology       0.86      0.83      0.84        23
+              General Medicine       0.79      0.56      0.65        27
+       Gynecology & Obstetrics       0.82      0.88      0.85        16
+         Hematology & Oncology       0.60      0.67      0.63         9
+                     Neurology       0.60      0.77      0.68        31
+                 Ophthalmology       1.00      1.00      1.00         8
+                   Orthopedics       0.78      0.83      0.81        35
+                    Pediatrics       1.00      0.14      0.25         7
+Psychiatry & Behavioral Health       0.80      0.67      0.73         6
+          Urology & Nephrology       0.85      0.92      0.88        24
+
+                      accuracy                           0.77       236
+                     macro avg       0.83      0.73      0.75       236
+                  weighted avg       0.79      0.77      0.76       236
+```
+
+### 📊 B. Per-Class Performance Summary Table
+
+| Medical Specialty / Department | Precision | Recall | F1-Score | Support (Test Samples) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Ophthalmology** | `1.00` | `1.00` | **`1.00`** | 8 |
+| **Urology & Nephrology** | `0.85` | `0.92` | **`0.88`** | 24 |
+| **Gynecology & Obstetrics** | `0.82` | `0.88` | **`0.85`** | 16 |
+| **Gastroenterology** | `0.86` | `0.83` | **`0.84`** | 23 |
+| **Orthopedics** | `0.78` | `0.83` | **`0.81`** | 35 |
+| **Dermatology** | `1.00` | `0.67` | **`0.80`** | 3 |
+| **Cardiology & Pulmonology** | `0.76` | `0.84` | **`0.79`** | 37 |
+| **ENT (Otolaryngology)** | `0.88` | `0.70` | **`0.78`** | 10 |
+| **Psychiatry & Behavioral Health** | `0.80` | `0.67` | **`0.73`** | 6 |
+| **Neurology** | `0.60` | `0.77` | **`0.68`** | 31 |
+| **General Medicine** | `0.79` | `0.56` | **`0.65`** | 27 |
+| **Hematology & Oncology** | `0.60` | `0.67` | **`0.63`** | 9 |
+| **Pediatrics** | `1.00` | `0.14` | **`0.25`** | 7 |
+| **Overall Accuracy** | — | — | **`0.77` (77.0%)** | **236** |
+| **Macro Average** | **`0.83`** | **`0.73`** | **`0.75`** | **236** |
+| **Weighted Average** | **`0.79`** | **`0.77`** | **`0.76`** | **236** |
+
+### 🖼️ C. Training & Validation Visualizations
+
+| Confusion Matrix | Validation Accuracy & Loss Curves |
+| :---: | :---: |
+| ![Confusion Matrix](notebooks/Confusion%20Matrix.png) | ![Validation Curve](notebooks/Validation.png) |
 
 ---
 
