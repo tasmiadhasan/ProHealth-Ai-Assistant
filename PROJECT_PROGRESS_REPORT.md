@@ -1,4 +1,4 @@
-# <Project Progress Report>
+# Project Progress Report
 # ProHealth AI Assistant
 
 **Organisation:** Department of Computer Science & Engineering  
@@ -76,9 +76,9 @@ Simultaneously, a deterministic rule-based triage evaluator inspects clinical re
 
 ---
 
-## 1.4. Project Plan & Gantt Chart
+## 1.4. Project Plan, Gantt Chart & Progress Analytics
 
-### 📊 Visual Gantt Chart (Project Timeline)
+### 📊 Visual Gantt Chart (Project Execution Timeline)
 
 ```mermaid
 gantt
@@ -95,6 +95,12 @@ gantt
     WP5: Google OAuth, Dashboard & PDF Generator   :done, wp5, 2026-08-09, 2026-08-14
     WP6: Vercel Serverless Deployment & Final QA   :done, wp6, 2026-08-15, 2026-08-16
 ```
+
+### 🥧 Project Progress & Work Distribution Analytics
+
+| Overall Project Progress Status | Work Package Deliverables Breakdown |
+| :---: | :---: |
+| ![Overall Project Progress Status](project_progress_pie_chart.png) | ![Work Package Contribution](project_wp_progress_pie_chart.png) |
 
 ### 📋 Work Package Progress Table
 

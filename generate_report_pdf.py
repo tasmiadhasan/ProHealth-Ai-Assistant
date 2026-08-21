@@ -6,7 +6,7 @@ import os
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable, PageBreak, KeepTogether
+    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable, PageBreak, KeepTogether, Image
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
@@ -254,7 +254,22 @@ def build_progress_report_pdf():
         ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
     ]))
     elements.append(t_plan)
-    elements.append(Spacer(1, 10))
+    elements.append(Spacer(1, 8))
+
+    elements.append(Paragraph("<b>Project Progress & Deliverables Analytics (Pie Charts):</b>", h2))
+    if os.path.exists("project_progress_pie_chart.png") and os.path.exists("project_wp_progress_pie_chart.png"):
+        img1 = Image("project_progress_pie_chart.png", width=3.35 * inch, height=2.4 * inch)
+        img2 = Image("project_wp_progress_pie_chart.png", width=3.35 * inch, height=2.4 * inch)
+        t_charts = Table([[img1, img2]], colWidths=[3.5 * inch, 3.5 * inch])
+        t_charts.setStyle(TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+            ('TOPPADDING', (0,0), (-1,-1), 2),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 2),
+        ]))
+        elements.append(t_charts)
+
+    elements.append(PageBreak())
 
     elements.append(Paragraph("2. PROJECT DETAILS", h1))
     elements.append(Paragraph("2.1. Scope Changes", h2))
