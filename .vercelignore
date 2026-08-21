@@ -1,0 +1,12 @@
+.git
+.github
+.venv
+venv
+saved_models
+notebooks
+data/processed
+data/raw
+*.pdf
+__pycache__
+*.pyc
+.pytest_cache
