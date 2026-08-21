@@ -223,40 +223,81 @@ function closeUserDashboard() {
     if (modal) modal.classList.remove("open");
 }
 
+function saveLocalAppointment(appointment) {
+    if (!appointment || !appointment.ticket_id) return;
+    try {
+        let list = JSON.parse(localStorage.getItem("prohealth_local_appointments") || "[]");
+        list = list.filter(a => a.ticket_id !== appointment.ticket_id);
+        list.unshift(appointment);
+        localStorage.setItem("prohealth_local_appointments", JSON.stringify(list));
+    } catch (e) {
+        console.error("Local appointment save error:", e);
+    }
+}
+
 async function loadUserAppointments() {
     const container = document.getElementById("userAppointmentsContainer");
     const badgeText = document.getElementById("dashBookingCountText");
     if (!container) return;
 
-    container.innerHTML = `
-        <div class="dash-loading-state">
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            <p>${currentLang === 'bn' ? 'অ্যাপয়েন্টমেন্ট লোড হচ্ছে...' : 'Loading appointments...'}</p>
-        </div>
-    `;
+    // Load local appointments immediately for instant offline/serverless persistence!
+    let localList = [];
+    try {
+        localList = JSON.parse(localStorage.getItem("prohealth_local_appointments") || "[]");
+    } catch (e) {}
+
+    const email = (currentGoogleUser?.email || "").toLowerCase().trim();
+    if (email) {
+        localList = localList.filter(a => !a.user_email || a.user_email.toLowerCase().trim() === email);
+    }
 
     try {
-        const email = currentGoogleUser?.email || "";
         const url = `/api/user/appointments?email=${encodeURIComponent(email)}`;
-
         const res = await fetch(url);
-        const appointments = await res.json();
-
-        if (badgeText) {
-            badgeText.innerText = currentLang === 'bn' ? `${appointments.length} টি অ্যাপয়েন্টমেন্ট` : `${appointments.length} Appointments`;
+        let serverAppointments = [];
+        if (res.ok) {
+            serverAppointments = await res.json();
         }
 
-        renderUserAppointments(appointments);
+        // Merge server and local appointments by ticket_id
+        const map = new Map();
+        (Array.isArray(serverAppointments) ? serverAppointments : []).forEach(a => map.set(a.ticket_id, a));
+        localList.forEach(a => {
+            if (!map.has(a.ticket_id)) {
+                map.set(a.ticket_id, a);
+            }
+        });
+
+        const merged = Array.from(map.values());
+        localStorage.setItem("prohealth_local_appointments", JSON.stringify(merged));
+
+        if (badgeText) {
+            badgeText.innerText = currentLang === 'bn' ? `${merged.length} টি অ্যাপয়েন্টমেন্ট` : `${merged.length} Appointments`;
+        }
+
+        renderUserAppointments(merged);
     } catch (err) {
-        console.error("Error loading appointments:", err);
-        container.innerHTML = `
-            <div class="dash-empty-state">
-                <i class="fa-solid fa-triangle-exclamation" style="color: #EF4444;"></i>
-                <h4>${currentLang === 'bn' ? 'তথ্য লোড করা যায়নি' : 'Could not load bookings'}</h4>
-                <button class="btn btn-sm btn-outline" onclick="loadUserAppointments()">${currentLang === 'bn' ? 'পুনরায় চেষ্টা করুন' : 'Try Again'}</button>
-            </div>
-        `;
+        console.warn("Server appointment load warning, fallback to local:", err);
+        if (badgeText) {
+            badgeText.innerText = currentLang === 'bn' ? `${localList.length} টি অ্যাপয়েন্টমেন্ট` : `${localList.length} Appointments`;
+        }
+        renderUserAppointments(localList);
     }
+}
+
+function getDoctorAvatarHTML(avatar) {
+    if (!avatar) {
+        return `<img src="/static/images/doctor_male_icon.png" alt="Doctor" class="doc-avatar-img">`;
+    }
+    if (typeof avatar === "string") {
+        if (avatar.startsWith("/") || avatar.startsWith("http") || avatar.includes(".png") || avatar.includes(".jpg") || avatar.includes(".svg")) {
+            return `<img src="${avatar}" alt="Doctor" class="doc-avatar-img" onerror="this.src='/static/images/doctor_male_icon.png'">`;
+        }
+        if (avatar.includes("female") || avatar.includes("👩")) {
+            return `<img src="/static/images/doctor_female_icon.png" alt="Doctor" class="doc-avatar-img">`;
+        }
+    }
+    return `<img src="/static/images/doctor_male_icon.png" alt="Doctor" class="doc-avatar-img">`;
 }
 
 function renderUserAppointments(appointments) {
@@ -276,21 +317,6 @@ function renderUserAppointments(appointments) {
         `;
         return;
     }
-
-function getDoctorAvatarHTML(avatar) {
-    if (!avatar) {
-        return `<img src="/static/images/doctor_male_icon.png" alt="Doctor" class="doc-avatar-img">`;
-    }
-    if (typeof avatar === "string") {
-        if (avatar.startsWith("/") || avatar.startsWith("http") || avatar.includes(".png") || avatar.includes(".jpg") || avatar.includes(".svg")) {
-            return `<img src="${avatar}" alt="Doctor" class="doc-avatar-img" onerror="this.src='/static/images/doctor_male_icon.png'">`;
-        }
-        if (avatar.includes("female") || avatar.includes("👩")) {
-            return `<img src="/static/images/doctor_female_icon.png" alt="Doctor" class="doc-avatar-img">`;
-        }
-    }
-    return `<img src="/static/images/doctor_male_icon.png" alt="Doctor" class="doc-avatar-img">`;
-}
 
     container.innerHTML = "";
     appointments.forEach(apt => {
@@ -363,16 +389,19 @@ async function cancelUserAppointment(ticketId) {
     
     if (!confirm(confirmMsg)) return;
 
+    // Immediately remove from localStorage
     try {
-        const res = await fetch(`/api/user/appointments/${ticketId}`, { method: "DELETE" });
-        if (res.ok) {
-            loadUserAppointments();
-        } else {
-            alert("Could not cancel appointment.");
-        }
+        let list = JSON.parse(localStorage.getItem("prohealth_local_appointments") || "[]");
+        list = list.filter(a => a.ticket_id !== ticketId);
+        localStorage.setItem("prohealth_local_appointments", JSON.stringify(list));
+    } catch (e) {}
+
+    try {
+        await fetch(`/api/user/appointments/${ticketId}`, { method: "DELETE" });
     } catch (e) {
-        console.error("Error cancelling appointment:", e);
+        console.warn("Server delete warning:", e);
     }
+    loadUserAppointments();
 }
 
 const I18N = {
@@ -1448,6 +1477,9 @@ async function submitAppointment(event) {
             body: JSON.stringify(payload)
         });
         const result = await res.json();
+        if (result && result.appointment) {
+            saveLocalAppointment(result.appointment);
+        }
         closeAppointmentModal();
         showConfirmationModal(result);
         if (currentGoogleUser) {
