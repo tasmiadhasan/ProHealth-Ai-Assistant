@@ -424,6 +424,9 @@ const I18N = {
         resSpecMeta: "পরামর্শক বিশেষজ্ঞ (Suggested Doctor):",
         resProbTitle: '<i class="fa-solid fa-chart-column"></i> শীর্ষ ৩টি সম্ভাব্য বিভাগ ও সম্ভাব্যতা:',
         resAdviceHeader: '<i class="fa-solid fa-circle-info"></i> তাৎক্ষণিক ক্লিনিক্যাল পরামর্শ:',
+        recDocHeaderTitle: "সুপারিশকৃত বিশেষজ্ঞ ডাক্তারগণ (Recommended Doctors)",
+        recDocHeaderSub: "AI পূর্বাভাস অনুযায়ী পদবী, রেটিং ও অভিজ্ঞতার ভিত্তিতে সেরা ডাক্তার তালিকা",
+        recDeptPill: '<i class="fa-solid fa-star"></i> শীর্ষ ডাক্তার তালিকা',
         pdfBtnText: "অফিসিয়াল PDF টিকেট ডাউনলোড",
         bookDocBtnText: "এই বিভাগে ডাক্তার বুক করুন",
 
@@ -451,10 +454,10 @@ const I18N = {
         // About Section
         aboutBadge: '<i class="fa-solid fa-shield-halved"></i> AI Transparency & Safety',
         aboutTitle: "কীভাবে কাজ করে ProHealth AI Assistant?",
-        aboutDesc: "আমাদের সিস্টেমটি <strong>Bio_ClinicalBERT</strong> ট্রান্সফরমার আর্কিটেকচার এবং ক্লিনিক্যাল ডায়াগনোসিস নলেজবেসের উপর ভিত্তি করে নির্মিত। এটি রোগীর প্রাকৃতিক ভাষার অভিযোগ (যেমন: বাংলা, বাংলিশ ও ইংরেজি) প্রসেস করে এবং উপসর্গগুলোকে যথাযথ মেডিকেল বিভাগে ক্লাসিফাই করে।",
-        feat1: "<strong>বহুভাষিক প্রসেসিং:</strong> বাংলা ও বাংলিশ শব্দগুলোকে ক্লিনিক্যাল পরিভাষায় রূপান্তর করে সঠিক ফলাফল দেয়।",
-        feat2: "<strong>স্বয়ংক্রিয় ইমার্জেন্সি ডিটেকশন:</strong> হার্ট অ্যাটাক, স্ট্রোক বা তীব্র শ্বাসকষ্টের মতো রেড-ফ্ল্যাগ লক্ষণ দেখলে তৎক্ষণাৎ লেভেল ১ ইমার্জেন্সি অ্যালার্ট দেয়।",
-        feat3: "<strong>হাসপাতাল রিসোর্স অপ্টিমাইজেশন:</strong> রোগীকে সঠিক ডাক্তারের কাছে পৌঁছে দিয়ে সময় ও খরচ বাঁচায়।",
+        aboutDesc: "আমাদের এআই সিস্টেমটি বিশ্বখ্যাত <strong>MTSamples (Medical Transcriptions)</strong> বেঞ্চমার্ক ক্লিনিক্যাল ডেটাসেটের উপর ফাইন-টিউন করা <strong>Bio_ClinicalBERT</strong> (যা MIMIC-III ও PubMed ক্লিনিক্যাল ডেটায় প্রি-ট্রেইনড) ডিপ লার্নিং ট্রান্সফরমার আর্কিটেকচার দ্বারা পরিচালিত। এটি রোগীর বাংলা, বাংলিশ ও ইংরেজি অভিযোগ প্রসেস করে ১৩টি প্রধান মেডিকেল বিভাগে নির্ভুলভাবে ক্লাসিফাই করে।",
+        feat1: "<strong>প্রশিক্ষণ ডেটাসেট (MTSamples & MIMIC-III):</strong> হাজার হাজার বাস্তব ক্লিনিক্যাল কেস নোট ও ট্রান্সক্রিপশন ডেটাসেটে প্রশিক্ষিত।",
+        feat2: "<strong>বহুভাষিক প্রসেসিং:</strong> বাংলা, বাংলিশ ও ইংরেজি টেক্সট সরাসরি বিশ্লেষণ করে তাৎক্ষণিক রেজাল্ট দেয়।",
+        feat3: "<strong>স্বয়ংক্রিয় ইমার্জেন্সি ডিটেকশন:</strong> হার্ট অ্যাটাক, স্ট্রোক বা তীব্র শ্বাসকষ্টের মতো রেড-ফ্ল্যাগ লক্ষণ দেখলে তৎক্ষণাৎ লেভেল ১ ইমার্জেন্সি অ্যালার্ট দেয়।",
         // Sign-In Modal & Dashboard
         signInModalTitle: "গুগল দিয়ে সাইন ইন করুন",
         signInModalDesc: "ডাক্তার অ্যাপয়েন্টমেন্ট বুকিং করতে এবং আপনার পূর্বের বুকিং হিস্ট্রি সংরক্ষণ করতে গুগল অ্যাকাউন্ট দিয়ে সাইন ইন করুন।",
@@ -554,6 +557,9 @@ const I18N = {
         resSpecMeta: "Suggested Consultant Doctor:",
         resProbTitle: '<i class="fa-solid fa-chart-column"></i> Top 3 Department Probability Breakdown:',
         resAdviceHeader: '<i class="fa-solid fa-circle-info"></i> Clinical Diagnosis Guidance:',
+        recDocHeaderTitle: "AI Recommended Specialist Doctors",
+        recDocHeaderSub: "Top medical specialists ranked by seniority, credentials & match score",
+        recDeptPill: '<i class="fa-solid fa-star"></i> AI Ranked Specialists',
         pdfBtnText: "Download Official PDF Slip",
         bookDocBtnText: "Book Doctor in this Department",
 
@@ -581,9 +587,10 @@ const I18N = {
         // About Section
         aboutBadge: '<i class="fa-solid fa-shield-halved"></i> AI Transparency & Safety',
         aboutTitle: "How ProHealth AI Assistant Works?",
-        aboutDesc: "Built on top of fine-tuned <strong>Bio_ClinicalBERT</strong> transformer architecture, the system translates and analyzes clinical terminology in real time to match patient symptoms to 13 specialized departments.",
-        feat1: "<strong>Multilingual Processing:</strong> Handles English, Bangla, and Banglish phonetic inputs effortlessly.",
-        feat2: "<strong>Automated Red-Flag Detection:</strong> Detects acute symptoms (e.g., chest pain, stroke signs) to trigger immediate Level 1 Emergency routing.",
+        aboutDesc: "Built on top of <strong>Bio_ClinicalBERT</strong> (pre-trained on MIMIC-III & PubMed) and fine-tuned on the gold-standard <strong>MTSamples (Medical Transcriptions) Benchmark Dataset</strong>, our AI system analyzes multilingual clinical complaints in real time to match patient symptoms to 13 specialized hospital wings.",
+        feat1: "<strong>Training Dataset (MTSamples & MIMIC-III):</strong> Fine-tuned on real-world medical transcriptions across 13 clinical specialties.",
+        feat2: "<strong>Multilingual NLP Engine:</strong> Native support for English, Bangla, and phonetic Banglish symptom inputs.",
+        feat3: "<strong>Automated Red-Flag Urgency Triage:</strong> Detects acute life-threatening presentations for immediate Level 1 Emergency care routing.",
         // Sign-In Modal & Dashboard
         signInModalTitle: "Sign In with Google",
         signInModalDesc: "Sign in with your Google account to book specialist doctor appointments and access your personal medical history.",
@@ -875,14 +882,33 @@ function clearInput() {
         input.value = "";
         input.focus();
     }
-    document.getElementById("emptyState").style.display = "flex";
-    document.getElementById("loadingState").style.display = "none";
-    document.getElementById("resultContent").style.display = "none";
+    const emptyState = document.getElementById("emptyState");
+    const loadingState = document.getElementById("loadingState");
+    const resultContent = document.getElementById("resultContent");
+    const recSection = document.getElementById("aiRecDoctorsSection");
+
+    if (emptyState) emptyState.style.display = "flex";
+    if (loadingState) loadingState.style.display = "none";
+    if (resultContent) resultContent.style.display = "none";
+    if (recSection) recSection.style.display = "none";
     lastPredictionResult = null;
 }
 
 /* =============================================================================
-   5. ASYNC AI TRIAGE & PREDICTION ENGINE
+   5. DOCTOR AVATAR HELPER
+   ============================================================================= */
+function getDoctorAvatarHTML(avatar) {
+    if (avatar && (avatar.includes(".png") || avatar.includes(".jpg") || avatar.includes("/") || avatar.includes("http"))) {
+        return `<img src="${avatar}" alt="Doctor" class="doc-img-avatar" onerror="this.onerror=null; this.src='/static/images/doctor_male_icon.png';" />`;
+    }
+    const defaultImg = (avatar && avatar.includes("👩"))
+        ? "/static/images/doctor_female_icon.png"
+        : "/static/images/doctor_male_icon.png";
+    return `<img src="${defaultImg}" alt="Doctor" class="doc-img-avatar" />`;
+}
+
+/* =============================================================================
+   6. ASYNC AI TRIAGE & PREDICTION ENGINE
    ============================================================================= */
 async function analyzeSymptoms() {
     const input = document.getElementById("symptomInput");
@@ -901,10 +927,12 @@ async function analyzeSymptoms() {
     const loadingState = document.getElementById("loadingState");
     const resultContent = document.getElementById("resultContent");
     const analyzeBtn = document.getElementById("analyzeBtn");
+    const recSection = document.getElementById("aiRecDoctorsSection");
 
-    emptyState.style.display = "none";
-    resultContent.style.display = "none";
-    loadingState.style.display = "flex";
+    if (emptyState) emptyState.style.display = "none";
+    if (resultContent) resultContent.style.display = "none";
+    if (recSection) recSection.style.display = "none";
+    if (loadingState) loadingState.style.display = "flex";
     if (analyzeBtn) analyzeBtn.disabled = true;
 
     try {
@@ -927,23 +955,34 @@ async function analyzeSymptoms() {
             ? "বিশ্লেষণ করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।"
             : "Failed to analyze symptoms. Please try again.";
         alert(errorMsg);
-        emptyState.style.display = "flex";
-        resultContent.style.display = "none";
+        if (emptyState) emptyState.style.display = "flex";
+        if (resultContent) resultContent.style.display = "none";
+        if (recSection) recSection.style.display = "none";
     } finally {
-        loadingState.style.display = "none";
+        if (loadingState) loadingState.style.display = "none";
         if (analyzeBtn) analyzeBtn.disabled = false;
     }
 }
 
 function renderTriageResult(data) {
+    if (!data) return;
+
     const resultContent = document.getElementById("resultContent");
+    const emptyState = document.getElementById("emptyState");
+    const loadingState = document.getElementById("loadingState");
+    const recSection = document.getElementById("aiRecDoctorsSection");
+
+    if (emptyState) emptyState.style.display = "none";
+    if (loadingState) loadingState.style.display = "none";
+    if (resultContent) resultContent.style.display = "flex";
+    if (recSection) recSection.style.display = "block";
+
     const triageBadge = document.getElementById("triageBadge");
     const triageIcon = document.getElementById("triageIcon");
     const triageLevelText = document.getElementById("triageLevelText");
     const confidenceText = document.getElementById("confidenceText");
     const deptTitleBn = document.getElementById("deptTitleBn");
     const deptTitleEn = document.getElementById("deptTitleEn");
-    const specialistName = document.getElementById("specialistName");
     const probBarsContainer = document.getElementById("probBarsContainer");
     const adviceText = document.getElementById("adviceText");
 
@@ -951,75 +990,205 @@ function renderTriageResult(data) {
     const level = triage.level || "routine";
 
     // Set Triage Badge styling based on current language
-    triageBadge.className = `triage-badge ${level}`;
+    if (triageBadge) triageBadge.className = `triage-badge ${level}`;
+    
     if (currentLang === "bn") {
-        if (level === "emergency") {
-            triageIcon.className = "fa-solid fa-triangle-exclamation";
-            triageLevelText.innerText = "🔴 জরুরি ইমার্জেন্সি (লেভেল ১ - EMERGENCY)";
-        } else if (level === "urgent") {
-            triageIcon.className = "fa-solid fa-clock-rotate-left";
-            triageLevelText.innerText = "🟡 অতি জরুরি কেয়ার (লেভেল ২ - URGENT)";
-        } else {
-            triageIcon.className = "fa-solid fa-circle-check";
-            triageLevelText.innerText = "🟢 সাধারণ পরামর্শ (লেভেল ৩ - ROUTINE)";
+        if (triageIcon && triageLevelText) {
+            if (level === "emergency") {
+                triageIcon.className = "fa-solid fa-triangle-exclamation";
+                triageLevelText.innerText = "🔴 জরুরি ইমার্জেন্সি (লেভেল ১ - EMERGENCY)";
+            } else if (level === "urgent") {
+                triageIcon.className = "fa-solid fa-clock-rotate-left";
+                triageLevelText.innerText = "🟡 অতি জরুরি কেয়ার (লেভেল ২ - URGENT)";
+            } else {
+                triageIcon.className = "fa-solid fa-circle-check";
+                triageLevelText.innerText = "🟢 সাধারণ পরামর্শ (লেভেল ৩ - ROUTINE)";
+            }
         }
-        confidenceText.innerText = `কনফিডেন্স স্কোর: ${data.confidence_score}%`;
-        deptTitleBn.innerText = data.recommended_department_bn || data.recommended_department;
-        deptTitleEn.innerText = `${data.recommended_department} Department`;
-        specialistName.innerText = `${data.specialist_bn} (${data.specialist})`;
+        if (confidenceText) confidenceText.innerText = `কনফিডেন্স স্কোর: ${data.confidence_score}%`;
+        if (deptTitleBn) deptTitleBn.innerText = data.recommended_department_bn || data.recommended_department;
+        if (deptTitleEn) deptTitleEn.innerText = `${data.recommended_department} Department`;
         if (adviceText) {
             adviceText.innerText = triage.guidance_bn || "রোগীর অবস্থা পর্যবেক্ষণ করে শীঘ্রই চিকিৎসকের পরামর্শ গ্রহণ করুন।";
         }
     } else {
-        if (level === "emergency") {
-            triageIcon.className = "fa-solid fa-triangle-exclamation";
-            triageLevelText.innerText = "🔴 LEVEL 1 - EMERGENCY CARE";
-        } else if (level === "urgent") {
-            triageIcon.className = "fa-solid fa-clock-rotate-left";
-            triageLevelText.innerText = "🟡 LEVEL 2 - URGENT CONSULTATION";
-        } else {
-            triageIcon.className = "fa-solid fa-circle-check";
-            triageLevelText.innerText = "🟢 LEVEL 3 - ROUTINE CHECKUP";
+        if (triageIcon && triageLevelText) {
+            if (level === "emergency") {
+                triageIcon.className = "fa-solid fa-triangle-exclamation";
+                triageLevelText.innerText = "🔴 LEVEL 1 - EMERGENCY CARE";
+            } else if (level === "urgent") {
+                triageIcon.className = "fa-solid fa-clock-rotate-left";
+                triageLevelText.innerText = "🟡 LEVEL 2 - URGENT CONSULTATION";
+            } else {
+                triageIcon.className = "fa-solid fa-circle-check";
+                triageLevelText.innerText = "🟢 LEVEL 3 - ROUTINE CHECKUP";
+            }
         }
-        confidenceText.innerText = `Confidence Score: ${data.confidence_score}%`;
-        deptTitleBn.innerText = `${data.recommended_department} Department`;
-        deptTitleEn.innerText = data.recommended_department_bn || "";
-        specialistName.innerText = `${data.specialist}`;
+        if (confidenceText) confidenceText.innerText = `Confidence Score: ${data.confidence_score}%`;
+        if (deptTitleBn) deptTitleBn.innerText = `${data.recommended_department} Department`;
+        if (deptTitleEn) deptTitleEn.innerText = data.recommended_department_bn || "";
         if (adviceText) {
             adviceText.innerText = triage.guidance_en || "Patient should consult the specialist doctor at the earliest convenience.";
         }
     }
 
-    // Render Probabilities
-    probBarsContainer.innerHTML = "";
-    if (data.top_3_recommendations) {
-        data.top_3_recommendations.forEach((item) => {
-            const label = currentLang === "bn" ? (item.department_bn || item.department) : item.department;
-            const probItem = document.createElement("div");
-            probItem.classList.add("prob-item");
-            probItem.innerHTML = `
-                <div class="prob-header">
-                    <span>${label}</span>
-                    <strong>${item.confidence_percentage}%</strong>
+    // Render Top Recommended Doctor in the Prediction Card's Dedicated Div
+    const predDocCardInner = document.getElementById("predDocCardInner");
+    const predDocTopMatchBadge = document.getElementById("predDocTopMatchBadge");
+    const recDocs = data.recommended_doctors || [];
+    
+    if (predDocCardInner && recDocs.length) {
+        const topDoc = recDocs[0];
+        const name = currentLang === "bn" ? (topDoc.name_bn || topDoc.name) : topDoc.name;
+        const rankText = currentLang === "bn" ? (topDoc.rank_badge_bn || topDoc.rank_badge || "বিশেষজ্ঞ ডাক্তার") : (topDoc.rank_badge || "Specialist Doctor");
+        
+        if (predDocTopMatchBadge) {
+            predDocTopMatchBadge.innerHTML = currentLang === "bn"
+                ? `<i class="fa-solid fa-star"></i> শীর্ষ বিশেষজ্ঞ`
+                : `<i class="fa-solid fa-star"></i> Top Specialist`;
+        }
+        
+        const expLabel = currentLang === "bn" ? "অভিজ্ঞতা" : "Exp";
+        const feeSub = currentLang === "bn" ? "/ কনসালটেশন" : "/ Consultation";
+        const bookBtnText = currentLang === "bn" ? "অ্যাপয়েন্টমেন্ট বুক করুন" : "Book Doctor";
+        const avatarImg = getDoctorAvatarHTML(topDoc.avatar);
+        
+        predDocCardInner.innerHTML = `
+            <div class="pred-doc-card-body">
+                <div class="pred-doc-avatar-wrapper">
+                    <div class="pred-doc-avatar">${avatarImg}</div>
+                    <span class="pred-doc-status ${topDoc.available_today ? 'online' : 'offline'}"></span>
                 </div>
-                <div class="prob-bar-track">
-                    <div class="prob-bar-fill" style="width: 0%"></div>
+                <div class="pred-doc-info">
+                    <div class="pred-doc-rank-row">
+                        <span class="pred-doc-rank-badge"><i class="fa-solid fa-award"></i> ${rankText}</span>
+                        <span class="pred-doc-rating"><i class="fa-solid fa-star" style="color: #F59E0B;"></i> <strong>${topDoc.rating}</strong> (${topDoc.reviews})</span>
+                    </div>
+                    <h3 class="pred-doc-name">${name}</h3>
+                    <div class="pred-doc-title">${topDoc.title}</div>
+                    <div class="pred-doc-degrees">${topDoc.degrees}</div>
+                    <div class="pred-doc-meta-row">
+                        <span><i class="fa-solid fa-briefcase-medical"></i> ${topDoc.experience} ${expLabel}</span>
+                        <span><i class="fa-solid fa-door-open"></i> ${topDoc.room}</span>
+                        <span><i class="fa-regular fa-clock"></i> ${topDoc.days}</span>
+                    </div>
                 </div>
-            `;
-            probBarsContainer.appendChild(probItem);
-
-            setTimeout(() => {
-                const fill = probItem.querySelector(".prob-bar-fill");
-                if (fill) fill.style.width = `${item.confidence_percentage}%`;
-            }, 100);
-        });
+            </div>
+            <div class="pred-doc-footer">
+                <div class="pred-doc-fee">
+                    <span class="fee-val">${topDoc.fee}</span>
+                    <span class="fee-sub">${feeSub}</span>
+                </div>
+                <button class="btn btn-primary btn-sm pred-doc-book-btn" onclick="openAppointmentModalForDoctor('${topDoc.id}', '${name}', '${topDoc.department}')">
+                    <i class="fa-regular fa-calendar-check"></i> ${bookBtnText}
+                </button>
+            </div>
+        `;
     }
 
-    resultContent.style.display = "flex";
+    // Render Probabilities
+    if (probBarsContainer) {
+        probBarsContainer.innerHTML = "";
+        if (data.top_3_recommendations) {
+            data.top_3_recommendations.forEach((item) => {
+                const label = currentLang === "bn" ? (item.department_bn || item.department) : item.department;
+                const probItem = document.createElement("div");
+                probItem.classList.add("prob-item");
+                probItem.innerHTML = `
+                    <div class="prob-header">
+                        <span>${label}</span>
+                        <strong>${item.confidence_percentage}%</strong>
+                    </div>
+                    <div class="prob-bar-track">
+                        <div class="prob-bar-fill" style="width: 0%"></div>
+                    </div>
+                `;
+                probBarsContainer.appendChild(probItem);
+
+                setTimeout(() => {
+                    const fill = probItem.querySelector(".prob-bar-fill");
+                    if (fill) fill.style.width = `${item.confidence_percentage}%`;
+                }, 100);
+            });
+        }
+    }
+
+    // Render Recommended Specialist Doctors in Separate Full-Width Section
+    const recGrid = document.getElementById("aiRecDoctorsGrid");
+    const recDeptHighlight = document.getElementById("aiRecDeptHighlight");
+
+    if (recSection && recGrid) {
+        recGrid.innerHTML = "";
+        const deptName = currentLang === "bn" ? (data.recommended_department_bn || data.recommended_department) : data.recommended_department;
+        if (recDeptHighlight) recDeptHighlight.innerText = deptName;
+
+        if (!recDocs.length) {
+            recGrid.innerHTML = `<p class="rec-empty-msg" style="grid-column: 1/-1;">${currentLang === "bn" ? "এই মুহূর্তে সরাসরি ডাক্তার তালিকা পাওয়া যায়নি।" : "No specialized doctors currently found for this department."}</p>`;
+        } else {
+            recDocs.forEach((doc, idx) => {
+                const name = currentLang === "bn" ? (doc.name_bn || doc.name) : doc.name;
+                const rankText = currentLang === "bn" ? (doc.rank_badge_bn || doc.rank_badge || "বিশেষজ্ঞ ডাক্তার") : (doc.rank_badge || "Specialist Doctor");
+                const isTopMatch = idx === 0;
+                const matchBadgeClass = isTopMatch ? "rec-match-pill top" : "rec-match-pill";
+                const matchBadgeText = isTopMatch 
+                    ? (currentLang === "bn" ? `★ শীর্ষ বাছাই` : `★ Top Pick`)
+                    : (currentLang === "bn" ? `সুপারিশকৃত বিশেষজ্ঞ` : `Recommended Specialist`);
+                const expLabel = currentLang === "bn" ? "অভিজ্ঞতা" : "Exp";
+                const chamberStatus = doc.available_today 
+                    ? (currentLang === "bn" ? "● চেম্বার খোলা" : "● Chamber Open") 
+                    : (currentLang === "bn" ? "অফলাইন" : "Offline");
+                const bookBtnText = currentLang === "bn" ? "সরাসরি বুকিং নিন" : "Book Appointment";
+                const avatarImg = getDoctorAvatarHTML(doc.avatar);
+                
+                const card = document.createElement("div");
+                card.className = `ai-rec-doctor-card ${isTopMatch ? 'highlight-top' : ''}`;
+                card.innerHTML = `
+                    <div class="rec-card-top">
+                        <div class="rec-badges-row">
+                            <span class="${matchBadgeClass}"><i class="fa-solid fa-star"></i> ${matchBadgeText}</span>
+                            <span class="rec-rank-pill"><i class="fa-solid fa-award"></i> ${rankText}</span>
+                        </div>
+                        <span class="rec-status-badge ${doc.available_today ? 'open' : 'closed'}">${chamberStatus}</span>
+                    </div>
+
+                    <div class="rec-card-body">
+                        <div class="rec-avatar-col">
+                            <div class="rec-avatar-circle">${avatarImg}</div>
+                        </div>
+                        <div class="rec-info-col">
+                            <h4 class="rec-doc-name">${name}</h4>
+                            <div class="rec-doc-title">${doc.title}</div>
+                            <div class="rec-doc-degrees">${doc.degrees}</div>
+                            
+                            <div class="rec-doc-meta">
+                                <span><i class="fa-solid fa-star" style="color: #F59E0B;"></i> <strong>${doc.rating}</strong> (${doc.reviews})</span>
+                                <span><i class="fa-solid fa-briefcase-medical"></i> ${doc.experience} ${expLabel}</span>
+                                <span><i class="fa-solid fa-door-open"></i> ${doc.room}</span>
+                                <span><i class="fa-regular fa-clock"></i> ${doc.days}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rec-card-footer">
+                        <div class="rec-fee-tag">
+                            <span class="rec-fee-amount">${doc.fee}</span>
+                            <span class="rec-fee-label">${currentLang === "bn" ? "/ কনসালটেশন" : "/ Consultation"}</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm rec-book-btn" onclick="openAppointmentModalForDoctor('${doc.id}', '${name}', '${doc.department}')">
+                            <i class="fa-regular fa-calendar-check"></i> ${bookBtnText}
+                        </button>
+                    </div>
+                `;
+                recGrid.appendChild(card);
+            });
+        }
+
+        recSection.style.display = "block";
+    }
 }
 
 /* =============================================================================
-   6. DOCTORS DIRECTORY & DEPARTMENT TABS
+   7. DOCTORS DIRECTORY & DEPARTMENT TABS
    ============================================================================= */
 async function fetchDoctors(deptKey = "all") {
     const grid = document.getElementById("doctorsGrid");
@@ -1027,11 +1196,11 @@ async function fetchDoctors(deptKey = "all") {
 
     grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 2rem; color: var(--text-muted);">
         <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
-        <p style="margin-top: 0.8rem;">${currentLang === "bn" ? "ডাক্তারদের তথ্য লোড হচ্ছে..." : "Loading Doctors Directory..."}</p>
+        <p style="margin-top: 0.8rem;">${currentLang === "bn" ? "শীর্ষ বিশেষজ্ঞ ডাক্তারদের তথ্য লোড হচ্ছে..." : "Loading Featured Specialists..."}</p>
     </div>`;
 
     try {
-        const url = deptKey === "all" ? "/api/doctors" : `/api/doctors?department=${deptKey}`;
+        const url = deptKey === "all" ? "/api/doctors?featured=true" : `/api/doctors?department=${deptKey}`;
         const res = await fetch(url);
         doctorsData = await res.json();
         renderDoctorsGrid(doctorsData);
@@ -1062,12 +1231,13 @@ function renderDoctorsGrid(doctors) {
         const expLabel = currentLang === "bn" ? "অভিজ্ঞতা" : "Exp";
         const feeSub = currentLang === "bn" ? "/ কনসালটেশন" : "/ Consultation";
         const bookBtnText = currentLang === "bn" ? "বুকিং" : "Book";
+        const avatarImg = getDoctorAvatarHTML(doc.avatar);
 
         const card = document.createElement("div");
         card.classList.add("doctor-card");
         card.innerHTML = `
             <div class="doc-badge-status">${availableText}</div>
-            <div class="doc-avatar-wrapper">${doc.avatar || "👨‍⚕️"}</div>
+            <div class="doc-avatar-wrapper">${avatarImg}</div>
             <h3 class="doc-name">${name}</h3>
             <div class="doc-title">${doc.title}</div>
             <div class="doc-degrees">${doc.degrees}</div>

@@ -54,25 +54,28 @@ STATIC_DIR = Path(__file__).resolve().parent / "static"
 STATIC_DIR.mkdir(parents=True, exist_ok=True)
 
 # ---------------------------------------------------------
-# Mock Doctors Database across all 13 Specialized Departments
+# Mock Doctors Database across all Specialized Departments
 # ---------------------------------------------------------
 DOCTORS_DATABASE = [
+    # 1. Cardiology & Pulmonology
     {
         "id": "doc-1",
         "name": "Prof. Dr. Rafiqul Islam",
         "name_bn": "অধ্যাপক ডাঃ রফিকুল ইসলাম",
         "department": "Cardiology & Pulmonology",
         "dept_key": "cardiology",
-        "title": "Senior Consultant - Cardiology",
+        "title": "Professor & Senior Consultant - Interventional Cardiology",
+        "designation": "Professor",
         "degrees": "MBBS, FCPS (Cardiology), MD (USA), FACC",
-        "experience": "18+ Years",
+        "experience": "22+ Years",
         "room": "Room 402, Block A",
         "days": "Sat - Thu (5:00 PM - 9:00 PM)",
         "fee": "৳ 1,200",
         "rating": 4.9,
         "reviews": 342,
-        "avatar": "👨‍⚕️",
-        "available_today": True
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": True
     },
     {
         "id": "doc-2",
@@ -80,33 +83,77 @@ DOCTORS_DATABASE = [
         "name_bn": "ডাঃ ফারহানা ইয়াসমিন",
         "department": "Cardiology & Pulmonology",
         "dept_key": "cardiology",
-        "title": "Associate Professor - Pulmonology",
+        "title": "Associate Professor - Pulmonology & Chest Diseases",
+        "designation": "Associate Professor",
         "degrees": "MBBS, DTCD, MD (Chest Diseases)",
-        "experience": "12+ Years",
+        "experience": "14+ Years",
         "room": "Room 405, Block A",
         "days": "Sat, Mon, Wed (4:00 PM - 8:00 PM)",
         "fee": "৳ 1,000",
         "rating": 4.8,
         "reviews": 215,
-        "avatar": "👩‍⚕️",
-        "available_today": True
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": False
     },
+    {
+        "id": "doc-2b",
+        "name": "Dr. Tariqul Alam",
+        "name_bn": "ডাঃ তারিকুল আলম",
+        "department": "Cardiology & Pulmonology",
+        "dept_key": "cardiology",
+        "title": "Senior Consultant - Clinical Cardiology & Echo",
+        "designation": "Senior Consultant",
+        "degrees": "MBBS, D-Card (DU), MACP (USA)",
+        "experience": "11+ Years",
+        "room": "Room 408, Block A",
+        "days": "Sun, Tue, Thu (5:00 PM - 8:30 PM)",
+        "fee": "৳ 900",
+        "rating": 4.7,
+        "reviews": 140,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+    {
+        "id": "doc-2c",
+        "name": "Dr. Mahmud Hasan",
+        "name_bn": "ডাঃ মাহমুদ হাসান",
+        "department": "Cardiology & Pulmonology",
+        "dept_key": "cardiology",
+        "title": "Consultant - Cardiac Electrophysiology & Pacemaker",
+        "designation": "Consultant",
+        "degrees": "MBBS, FCPS (Medicine), MD (Cardiology)",
+        "experience": "9+ Years",
+        "room": "Room 410, Block A",
+        "days": "Sat, Tue, Thu (3:00 PM - 7:00 PM)",
+        "fee": "৳ 850",
+        "rating": 4.8,
+        "reviews": 110,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+
+    # 2. Orthopedics & Trauma Surgery
     {
         "id": "doc-3",
         "name": "Prof. Dr. Mahbubur Rahman",
         "name_bn": "অধ্যাপক ডাঃ মাহবুবুর রহমান",
         "department": "Orthopedics",
         "dept_key": "orthopedics",
-        "title": "Chief Orthopedic & Spine Surgeon",
-        "degrees": "MBBS, MS (Ortho), Fellow Arthroplasty (Singapore)",
-        "experience": "20+ Years",
+        "title": "Professor & Chief Orthopedic Surgeon",
+        "designation": "Professor",
+        "degrees": "MBBS, MS (Ortho), Fellow Joint Replacement (Singapore)",
+        "experience": "24+ Years",
         "room": "Room 301, Block B",
         "days": "Daily except Friday (6:00 PM - 10:00 PM)",
         "fee": "৳ 1,500",
         "rating": 5.0,
         "reviews": 480,
-        "avatar": "👨‍⚕️",
-        "available_today": True
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": True
     },
     {
         "id": "doc-4",
@@ -114,152 +161,492 @@ DOCTORS_DATABASE = [
         "name_bn": "ডাঃ তানজিনা আক্তার",
         "department": "Orthopedics",
         "dept_key": "orthopedics",
-        "title": "Consultant - Trauma & Joint Reconstruction",
+        "title": "Senior Consultant - Spine & Joint Reconstruction",
+        "designation": "Senior Consultant",
         "degrees": "MBBS, D-Ortho, FCPS (Ortho)",
-        "experience": "10+ Years",
+        "experience": "15+ Years",
         "room": "Room 304, Block B",
         "days": "Sun, Tue, Thu (3:00 PM - 7:00 PM)",
-        "fee": "৳ 1,000",
-        "rating": 4.7,
-        "reviews": 160,
-        "avatar": "👩‍⚕️",
-        "available_today": False
+        "fee": "৳ 1,100",
+        "rating": 4.8,
+        "reviews": 190,
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": False
     },
     {
+        "id": "doc-4b",
+        "name": "Dr. Kazi Imtiaz",
+        "name_bn": "ডাঃ কাজী ইমতিয়াজ",
+        "department": "Orthopedics",
+        "dept_key": "orthopedics",
+        "title": "Associate Professor - Arthroscopy & Sports Trauma Surgery",
+        "designation": "Associate Professor",
+        "degrees": "MBBS, MS (Ortho), Fellow Arthroscopy (UK)",
+        "experience": "12+ Years",
+        "room": "Room 306, Block B",
+        "days": "Sat, Mon, Wed (5:00 PM - 9:00 PM)",
+        "fee": "৳ 1,000",
+        "rating": 4.8,
+        "reviews": 165,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+    {
+        "id": "doc-4c",
+        "name": "Dr. Shahinur Alam",
+        "name_bn": "ডাঃ শাহীনুর আলম",
+        "department": "Orthopedics",
+        "dept_key": "orthopedics",
+        "title": "Consultant - Pediatric Orthopedics & Deformity Correction",
+        "designation": "Consultant",
+        "degrees": "MBBS, D-Ortho, MS (Ortho)",
+        "experience": "10+ Years",
+        "room": "Room 308, Block B",
+        "days": "Sun, Wed, Thu (4:00 PM - 8:00 PM)",
+        "fee": "৳ 900",
+        "rating": 4.7,
+        "reviews": 125,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+
+    # 3. Neurology & Neurosurgery
+    {
         "id": "doc-5",
-        "name": "Dr. Shamim Ahmed",
-        "name_bn": "ডাঃ শামীম আহমেদ",
+        "name": "Prof. Dr. Shamim Ahmed",
+        "name_bn": "অধ্যাপক ডাঃ শামীম আহমেদ",
         "department": "Neurology",
         "dept_key": "neurology",
-        "title": "Senior Neuro-Physician & Stroke Specialist",
-        "degrees": "MBBS, MD (Neurology), MACP (USA)",
-        "experience": "15+ Years",
+        "title": "Professor & Senior Neuro-Physician",
+        "designation": "Professor",
+        "degrees": "MBBS, MD (Neurology), MACP (USA), Fellow Stroke Care",
+        "experience": "20+ Years",
         "room": "Room 501, Block A",
         "days": "Sat - Thu (5:30 PM - 9:30 PM)",
         "fee": "৳ 1,300",
         "rating": 4.9,
         "reviews": 310,
-        "avatar": "👨‍⚕️",
-        "available_today": True
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": True
     },
+    {
+        "id": "doc-5b",
+        "name": "Dr. Rezwana Karim",
+        "name_bn": "ডাঃ রেযওয়ানা করিম",
+        "department": "Neurology",
+        "dept_key": "neurology",
+        "title": "Senior Consultant - Neurosurgery & Brain Spine Specialist",
+        "designation": "Senior Consultant",
+        "degrees": "MBBS, MS (Neurosurgery), Fellow Microneurosurgery (Japan)",
+        "experience": "16+ Years",
+        "room": "Room 504, Block A",
+        "days": "Sat, Mon, Wed (4:00 PM - 8:30 PM)",
+        "fee": "৳ 1,400",
+        "rating": 4.9,
+        "reviews": 245,
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+    {
+        "id": "doc-5c",
+        "name": "Dr. Zahid Hossain",
+        "name_bn": "ডাঃ জাহিদ হোসেন",
+        "department": "Neurology",
+        "dept_key": "neurology",
+        "title": "Associate Professor - Epilepsy & Clinical Neurophysiology",
+        "designation": "Associate Professor",
+        "degrees": "MBBS, FCPS (Medicine), MD (Neurology)",
+        "experience": "13+ Years",
+        "room": "Room 506, Block A",
+        "days": "Sun, Tue, Thu (5:00 PM - 9:00 PM)",
+        "fee": "৳ 1,100",
+        "rating": 4.8,
+        "reviews": 170,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+
+    # 4. Gastroenterology & General / Laparoscopic Surgery
     {
         "id": "doc-6",
-        "name": "Dr. Nusrat Jahan",
-        "name_bn": "ডাঃ নুসরাত জাহান",
+        "name": "Prof. Dr. Nusrat Jahan",
+        "name_bn": "অধ্যাপক ডাঃ নুসরাত জাহান",
         "department": "Gastroenterology",
         "dept_key": "gastroenterology",
-        "title": "Consultant - Gastroenterology & Hepatology",
-        "degrees": "MBBS, FCPS (Medicine), MD (Gastro)",
-        "experience": "11+ Years",
+        "title": "Professor & Senior Consultant - Gastroenterology & Hepatology",
+        "designation": "Professor",
+        "degrees": "MBBS, FCPS (Medicine), MD (Gastro), FACG (USA)",
+        "experience": "19+ Years",
         "room": "Room 202, Block C",
         "days": "Sat - Wed (4:00 PM - 8:30 PM)",
-        "fee": "৳ 1,000",
-        "rating": 4.8,
-        "reviews": 195,
-        "avatar": "👩‍⚕️",
-        "available_today": True
+        "fee": "৳ 1,200",
+        "rating": 4.9,
+        "reviews": 280,
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": True
     },
     {
+        "id": "doc-6b",
+        "name": "Dr. Tanvir Hossain",
+        "name_bn": "ডাঃ তানভীর হোসেন",
+        "department": "Gastroenterology",
+        "dept_key": "gastroenterology",
+        "title": "Associate Professor - Laparoscopic & GI Surgery",
+        "designation": "Associate Professor",
+        "degrees": "MBBS, MS (General Surgery), FMAS",
+        "experience": "13+ Years",
+        "room": "Room 205, Block C",
+        "days": "Sun, Tue, Thu (5:00 PM - 9:00 PM)",
+        "fee": "৳ 1,000",
+        "rating": 4.8,
+        "reviews": 175,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+    {
+        "id": "doc-6c",
+        "name": "Dr. Mizanur Rahman",
+        "name_bn": "ডাঃ মিজানুর রহমান",
+        "department": "Gastroenterology",
+        "dept_key": "gastroenterology",
+        "title": "Senior Consultant - Advanced Therapeutic Endoscopy & Liver Care",
+        "designation": "Senior Consultant",
+        "degrees": "MBBS, MD (Gastroenterology), Fellow Endoscopy (India)",
+        "experience": "16+ Years",
+        "room": "Room 208, Block C",
+        "days": "Sat, Mon, Wed (5:30 PM - 9:00 PM)",
+        "fee": "৳ 1,150",
+        "rating": 4.8,
+        "reviews": 220,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+
+    # 5. Dermatology & Laser
+    {
         "id": "doc-7",
-        "name": "Dr. Ahsan Habib",
-        "name_bn": "ডাঃ আহসান হাবীব",
+        "name": "Prof. Dr. Ahsan Habib",
+        "name_bn": "অধ্যাপক ডাঃ আহসান হাবীব",
         "department": "Dermatology",
         "dept_key": "dermatology",
-        "title": "Skin, Allergy & Laser Specialist",
+        "title": "Professor & Senior Laser Specialist",
+        "designation": "Professor",
         "degrees": "MBBS, DDV, FCPS (Dermatology)",
-        "experience": "14+ Years",
+        "experience": "18+ Years",
         "room": "Room 108, Block C",
         "days": "Daily except Thursday (5:00 PM - 9:00 PM)",
-        "fee": "৳ 1,000",
+        "fee": "৳ 1,200",
         "rating": 4.9,
         "reviews": 275,
-        "avatar": "👨‍⚕️",
-        "available_today": True
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
     },
+    {
+        "id": "doc-7b",
+        "name": "Dr. Farzana Sharmin",
+        "name_bn": "ডাঃ ফারজানা শারমিন",
+        "department": "Dermatology",
+        "dept_key": "dermatology",
+        "title": "Associate Professor - Clinical & Cosmetic Dermatology",
+        "designation": "Associate Professor",
+        "degrees": "MBBS, DDV, MD (Dermatology)",
+        "experience": "11+ Years",
+        "room": "Room 110, Block C",
+        "days": "Sat, Mon, Wed (3:30 PM - 7:30 PM)",
+        "fee": "৳ 900",
+        "rating": 4.7,
+        "reviews": 150,
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+
+    # 6. ENT & Head-Neck Surgery
     {
         "id": "doc-8",
         "name": "Prof. Dr. Nazmul Huda",
         "name_bn": "অধ্যাপক ডাঃ নাজমুল হুদা",
         "department": "ENT (Otolaryngology)",
         "dept_key": "ent",
-        "title": "Head of ENT & Head-Neck Surgery",
-        "degrees": "MBBS, DLO, MS (ENT)",
+        "title": "Professor & Head of ENT & Head-Neck Surgery",
+        "designation": "Professor",
+        "degrees": "MBBS, DLO, MS (ENT), Fellow Micro-Ear Surgery",
         "experience": "22+ Years",
         "room": "Room 204, Block B",
         "days": "Sat - Wed (6:00 PM - 9:30 PM)",
         "fee": "৳ 1,400",
         "rating": 4.9,
         "reviews": 380,
-        "avatar": "👨‍⚕️",
-        "available_today": True
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
     },
+    {
+        "id": "doc-8b",
+        "name": "Dr. Shahedur Rahman",
+        "name_bn": "ডাঃ শাহেদুর রহমান",
+        "department": "ENT (Otolaryngology)",
+        "dept_key": "ent",
+        "title": "Senior Consultant - Rhinology & Sinus Surgery",
+        "designation": "Senior Consultant",
+        "degrees": "MBBS, FCPS (ENT), MS (Otolaryngology)",
+        "experience": "14+ Years",
+        "room": "Room 206, Block B",
+        "days": "Sun, Tue, Thu (4:30 PM - 8:30 PM)",
+        "fee": "৳ 1,000",
+        "rating": 4.8,
+        "reviews": 185,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+
+    # 7. Gynecology & Obstetrics
     {
         "id": "doc-9",
-        "name": "Dr. Salma Begum",
-        "name_bn": "ডাঃ সালমা বেগম",
+        "name": "Prof. Dr. Salma Begum",
+        "name_bn": "অধ্যাপক ডাঃ সালমা বেগম",
         "department": "Gynecology & Obstetrics",
         "dept_key": "gynecology",
-        "title": "Senior Gynecologist & High-Risk Pregnancy Specialist",
-        "degrees": "MBBS, FCPS (Gynae & Obs), MRCOG (UK)",
-        "experience": "16+ Years",
+        "title": "Professor & Chief Gynecologist - High-Risk Pregnancy",
+        "designation": "Professor",
+        "degrees": "MBBS, FCPS (Gynae & Obs), MRCOG (UK), FICOG",
+        "experience": "21+ Years",
         "room": "Room 303, Block A",
         "days": "Sat - Thu (4:30 PM - 8:30 PM)",
-        "fee": "৳ 1,200",
+        "fee": "৳ 1,300",
         "rating": 5.0,
         "reviews": 520,
-        "avatar": "👩‍⚕️",
-        "available_today": True
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": True
     },
+    {
+        "id": "doc-9b",
+        "name": "Dr. Nadia Sultana",
+        "name_bn": "ডাঃ নাদিয়া সুলতানা",
+        "department": "Gynecology & Obstetrics",
+        "dept_key": "gynecology",
+        "title": "Associate Professor - Laparoscopic Gynae Surgery",
+        "designation": "Associate Professor",
+        "degrees": "MBBS, MS (Gynae & Obs), Fellow Infertility",
+        "experience": "13+ Years",
+        "room": "Room 307, Block A",
+        "days": "Sun, Tue, Thu (5:00 PM - 9:00 PM)",
+        "fee": "৳ 1,000",
+        "rating": 4.8,
+        "reviews": 210,
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+    {
+        "id": "doc-9c",
+        "name": "Dr. Rubina Yasmin",
+        "name_bn": "ডাঃ রুবিনা ইয়াসমিন",
+        "department": "Gynecology & Obstetrics",
+        "dept_key": "gynecology",
+        "title": "Senior Consultant - Fetal Medicine & Infertility",
+        "designation": "Senior Consultant",
+        "degrees": "MBBS, DGO, FCPS (Gynae)",
+        "experience": "16+ Years",
+        "room": "Room 309, Block A",
+        "days": "Sat, Mon, Wed (4:00 PM - 8:00 PM)",
+        "fee": "৳ 1,100",
+        "rating": 4.9,
+        "reviews": 240,
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+
+    # 8. Pediatrics & Child Health
     {
         "id": "doc-10",
-        "name": "Dr. Kamrul Hasan",
-        "name_bn": "ডাঃ কামরুল হাসান",
+        "name": "Prof. Dr. Kamrul Hasan",
+        "name_bn": "অধ্যাপক ডাঃ কামরুল হাসান",
         "department": "Pediatrics",
         "dept_key": "pediatrics",
-        "title": "Associate Professor - Child Health & Neonatology",
-        "degrees": "MBBS, DCH, MD (Pediatrics)",
-        "experience": "13+ Years",
+        "title": "Professor & Head of Child Health & Neonatology",
+        "designation": "Professor",
+        "degrees": "MBBS, DCH, MD (Pediatrics), Fellow Neonatology",
+        "experience": "20+ Years",
         "room": "Room 102, Block A (Kids Care)",
         "days": "Daily (5:00 PM - 9:00 PM)",
-        "fee": "৳ 1,000",
+        "fee": "৳ 1,200",
         "rating": 4.9,
         "reviews": 410,
-        "avatar": "👨‍⚕️",
-        "available_today": True
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": True
     },
+    {
+        "id": "doc-10b",
+        "name": "Dr. Shaila Sharmin",
+        "name_bn": "ডাঃ শায়লা শারমিন",
+        "department": "Pediatrics",
+        "dept_key": "pediatrics",
+        "title": "Associate Professor - Pediatric Intensive Care & Nutrition",
+        "designation": "Associate Professor",
+        "degrees": "MBBS, FCPS (Pediatrics)",
+        "experience": "12+ Years",
+        "room": "Room 105, Block A (Kids Care)",
+        "days": "Sat, Mon, Wed (4:00 PM - 8:00 PM)",
+        "fee": "৳ 900",
+        "rating": 4.8,
+        "reviews": 195,
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+    {
+        "id": "doc-10c",
+        "name": "Dr. Anisur Rahman",
+        "name_bn": "ডাঃ আনিসুর রহমান",
+        "department": "Pediatrics",
+        "dept_key": "pediatrics",
+        "title": "Senior Consultant - Pediatric Cardiology",
+        "designation": "Senior Consultant",
+        "degrees": "MBBS, DCH, FCPS (Pediatrics), Fellow Pediatric Echo",
+        "experience": "15+ Years",
+        "room": "Room 107, Block A",
+        "days": "Sun, Tue, Thu (5:00 PM - 9:00 PM)",
+        "fee": "৳ 1,100",
+        "rating": 4.9,
+        "reviews": 230,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+
+    # 9. Urology & Nephrology / Kidney Surgery
     {
         "id": "doc-11",
-        "name": "Dr. Masud Alam",
-        "name_bn": "ডাঃ মাসুদ আলম",
+        "name": "Prof. Dr. Masud Alam",
+        "name_bn": "অধ্যাপক ডাঃ মাসুদ আলম",
         "department": "Urology & Nephrology",
         "dept_key": "urology",
-        "title": "Consultant Urologist & Kidney Surgeon",
-        "degrees": "MBBS, MS (Urology), Fellow Endourology",
-        "experience": "14+ Years",
+        "title": "Professor & Chief Urologist & Kidney Surgeon",
+        "designation": "Professor",
+        "degrees": "MBBS, MS (Urology), Fellow Endourology & Laser Surgery",
+        "experience": "22+ Years",
         "room": "Room 208, Block B",
         "days": "Sat, Mon, Wed (5:00 PM - 9:00 PM)",
-        "fee": "৳ 1,100",
-        "rating": 4.8,
-        "reviews": 230,
-        "avatar": "👨‍⚕️",
-        "available_today": True
+        "fee": "৳ 1,300",
+        "rating": 4.9,
+        "reviews": 290,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
     },
     {
+        "id": "doc-11b",
+        "name": "Dr. Jahangir Kabir",
+        "name_bn": "ডাঃ জাহাঙ্গীর কবির",
+        "department": "Urology & Nephrology",
+        "dept_key": "urology",
+        "title": "Senior Consultant - Nephrologist & Dialysis Specialist",
+        "designation": "Senior Consultant",
+        "degrees": "MBBS, MD (Nephrology), FCPS (Medicine)",
+        "experience": "15+ Years",
+        "room": "Room 212, Block B",
+        "days": "Sun, Tue, Thu (4:00 PM - 8:00 PM)",
+        "fee": "৳ 1,100",
+        "rating": 4.8,
+        "reviews": 180,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+
+    # 10. Ophthalmology (Eye Surgery)
+    {
+        "id": "doc-13",
+        "name": "Prof. Dr. M. A. Matin",
+        "name_bn": "অধ্যাপক ডাঃ এম এ মতিন",
+        "department": "Ophthalmology",
+        "dept_key": "ophthalmology",
+        "title": "Professor & Chief Eye Surgeon - Phaco & Retina",
+        "designation": "Professor",
+        "degrees": "MBBS, FCPS (Ophth), MS (Eye), Fellow Cornea (UK)",
+        "experience": "23+ Years",
+        "room": "Room 401, Block C (Eye Care)",
+        "days": "Sat - Thu (5:00 PM - 9:00 PM)",
+        "fee": "৳ 1,200",
+        "rating": 4.9,
+        "reviews": 320,
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+    {
+        "id": "doc-13b",
+        "name": "Dr. Samia Rahman",
+        "name_bn": "ডাঃ সামিয়া রহমান",
+        "department": "Ophthalmology",
+        "dept_key": "ophthalmology",
+        "title": "Senior Consultant - Glaucoma & Refractive Surgery",
+        "designation": "Senior Consultant",
+        "degrees": "MBBS, DO, FCPS (Ophthalmology)",
+        "experience": "13+ Years",
+        "room": "Room 403, Block C (Eye Care)",
+        "days": "Sun, Tue, Thu (3:30 PM - 7:30 PM)",
+        "fee": "৳ 900",
+        "rating": 4.8,
+        "reviews": 160,
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+
+    # 11. General Medicine & Internal Medicine
+    {
         "id": "doc-12",
-        "name": "Dr. Arif Chowdhury",
-        "name_bn": "ডাঃ আরিফ চৌধুরী",
+        "name": "Prof. Dr. Arif Chowdhury",
+        "name_bn": "অধ্যাপক ডাঃ আরিফ চৌধুরী",
         "department": "General Medicine",
         "dept_key": "general",
-        "title": "Senior Consultant - Internal Medicine & Diabetology",
-        "degrees": "MBBS, FCPS (Medicine), MACP (USA)",
-        "experience": "17+ Years",
+        "title": "Professor & Senior Consultant - Internal Medicine",
+        "designation": "Professor",
+        "degrees": "MBBS, FCPS (Medicine), MACP (USA), FACP",
+        "experience": "22+ Years",
         "room": "Room 101, Block A",
         "days": "Daily (9:00 AM - 1:00 PM & 6:00 PM - 9:30 PM)",
-        "fee": "৳ 1,000",
+        "fee": "৳ 1,200",
         "rating": 4.9,
         "reviews": 600,
-        "avatar": "👨‍⚕️",
-        "available_today": True
+        "avatar": "/static/images/doctor_male_icon.png",
+        "available_today": True,
+        "is_featured": False
+    },
+    {
+        "id": "doc-12b",
+        "name": "Dr. Sadia Anjum",
+        "name_bn": "ডাঃ সাদিয়া আনজুম",
+        "department": "General Medicine",
+        "dept_key": "general",
+        "title": "Associate Professor - Diabetology & Family Medicine",
+        "designation": "Associate Professor",
+        "degrees": "MBBS, CCD (BIRDEM), FCPS (Medicine)",
+        "experience": "12+ Years",
+        "room": "Room 103, Block A",
+        "days": "Sat - Thu (4:00 PM - 8:30 PM)",
+        "fee": "৳ 900",
+        "rating": 4.8,
+        "reviews": 230,
+        "avatar": "/static/images/doctor_female_icon.png",
+        "available_today": True,
+        "is_featured": False
     }
 ]
 
@@ -364,31 +751,115 @@ def save_appointments(data: List[Dict[str, Any]]):
 # ---------------------------------------------------------
 @app.post("/api/predict")
 def predict_symptom(req: SymptomRequest):
-    """Predicts department, triage urgency, and fetches matching specialist doctors."""
+    """Predicts department, triage urgency, and fetches matching specialist doctors ranked by seniority and match percentage."""
     if not req.complaint.strip():
         raise HTTPException(status_code=400, detail="Complaint text cannot be empty.")
     
     result = predictor.predict(req.complaint)
     recommended_dept = result["recommended_department"]
+    confidence_score = float(result.get("confidence_score", 90.0))
+    rec_lower = recommended_dept.lower()
     
-    # Match available doctors in recommended department
+    # Accurate Department to Doctor Matching Table
+    dept_to_keys = {
+        "cardiology": ["cardiology"],
+        "cardiology & pulmonology": ["cardiology"],
+        "pulmonology": ["cardiology"],
+        "orthopedics": ["orthopedics"],
+        "neurology": ["neurology"],
+        "gastroenterology": ["gastroenterology"],
+        "dermatology": ["dermatology"],
+        "ent (otolaryngology)": ["ent"],
+        "ent": ["ent"],
+        "gynecology & obstetrics": ["gynecology"],
+        "gynecology": ["gynecology"],
+        "pediatrics": ["pediatrics"],
+        "urology & nephrology": ["urology"],
+        "urology": ["urology"],
+        "ophthalmology": ["ophthalmology"],
+        "general medicine": ["general"]
+    }
+    
+    matched_keys = dept_to_keys.get(rec_lower, [])
+    if not matched_keys:
+        for k, v in dept_to_keys.items():
+            if k in rec_lower or rec_lower in k:
+                matched_keys.extend(v)
+                break
+                
     matching_doctors = [
         doc for doc in DOCTORS_DATABASE 
-        if doc["department"].lower() in recommended_dept.lower() or recommended_dept.lower() in doc["department"].lower()
+        if doc["dept_key"].lower() in matched_keys or doc["department"].lower() == rec_lower
     ]
     if not matching_doctors:
-        # Fallback to general medicine if no direct match
         matching_doctors = [doc for doc in DOCTORS_DATABASE if doc["dept_key"] == "general"]
+    
+    # Seniority hierarchy weight mapping
+    # Professor / Chief Surgeon -> 1.0 (Top tier)
+    # Senior Consultant -> 0.96
+    # Associate Professor -> 0.92
+    # Consultant -> 0.88
+    ranked_doctors = []
+    for doc in matching_doctors:
+        doc_copy = dict(doc)
+        designation = doc_copy.get("designation", "Consultant")
         
-    result["recommended_doctors"] = matching_doctors
+        if "Professor" in designation or "Chief" in doc_copy.get("title", ""):
+            rank_weight = 1.0
+            rank_badge = "Professor & Head"
+            rank_badge_bn = "অধ্যাপক ও বিভাগীয় প্রধান"
+        elif "Senior Consultant" in designation or "Senior Consultant" in doc_copy.get("title", ""):
+            rank_weight = 0.96
+            rank_badge = "Senior Consultant"
+            rank_badge_bn = "সিনিয়র কনসালটেন্ট"
+        elif "Associate Professor" in designation or "Associate Professor" in doc_copy.get("title", ""):
+            rank_weight = 0.92
+            rank_badge = "Associate Professor"
+            rank_badge_bn = "সহযোগী অধ্যাপক"
+        else:
+            rank_weight = 0.88
+            rank_badge = "Consultant Specialist"
+            rank_badge_bn = "কনসালটেন্ট স্পেশালিস্ট"
+            
+        rating = float(doc_copy.get("rating", 4.8))
+        rating_boost = (rating / 5.0) * 4.0
+        
+        # Calculate realistic, high-confidence match percentage for this doctor
+        calculated_match = round(min(99.4, (confidence_score * 0.82) + (rank_weight * 14.0) + rating_boost), 1)
+        doc_copy["match_percentage"] = calculated_match
+        doc_copy["rank_badge"] = rank_badge
+        doc_copy["rank_badge_bn"] = rank_badge_bn
+        ranked_doctors.append(doc_copy)
+        
+    # Sort doctors so that the highest match (Professor / Senior Consultant / highest rated) comes first
+    ranked_doctors.sort(key=lambda d: d.get("match_percentage", 0), reverse=True)
+    result["recommended_doctors"] = ranked_doctors
     return result
 
 @app.get("/api/doctors")
-def get_doctors(department: Optional[str] = None):
-    """Returns list of doctors with optional department filtering."""
+def get_doctors(
+    department: Optional[str] = None,
+    featured: Optional[bool] = None,
+    search: Optional[str] = None
+):
+    """Returns list of doctors with optional department, featured, and search filtering."""
+    docs = DOCTORS_DATABASE
+    if featured is True:
+        docs = [d for d in docs if d.get("is_featured", False)]
     if department and department.lower() != "all":
-        return [doc for doc in DOCTORS_DATABASE if doc["dept_key"].lower() == department.lower()]
-    return DOCTORS_DATABASE
+        docs = [d for d in docs if d.get("dept_key", "").lower() == department.lower()]
+    if search and search.strip():
+        q = search.strip().lower()
+        docs = [
+            d for d in docs
+            if q in d.get("name", "").lower()
+            or q in d.get("name_bn", "").lower()
+            or q in d.get("title", "").lower()
+            or q in d.get("degrees", "").lower()
+            or q in d.get("department", "").lower()
+            or q in d.get("designation", "").lower()
+        ]
+    return docs
 
 @app.get("/api/facilities")
 def get_facilities():
@@ -703,6 +1174,8 @@ def generate_referral_pdf(req: PdfRequest):
 # Static Files & SPA Route
 # ---------------------------------------------------------
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+if (PROJECT_ROOT / "images").exists():
+    app.mount("/images", StaticFiles(directory=str(PROJECT_ROOT / "images")), name="images")
 
 @app.get("/")
 def serve_index():
@@ -713,6 +1186,15 @@ def serve_index():
         content={"message": "ProHealth AI Assistant API is running. UI is initializing."},
         status_code=200
     )
+
+@app.get("/doctors")
+@app.get("/doctors.html")
+def serve_doctors():
+    doc_file = STATIC_DIR / "doctors.html"
+    if doc_file.exists():
+        return FileResponse(str(doc_file))
+    index_file = STATIC_DIR / "index.html"
+    return FileResponse(str(index_file))
 
 if __name__ == "__main__":
     print("🏥 Starting ProHealth AI Assistant Web Portal on http://localhost:8000 ...")

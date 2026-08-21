@@ -46,7 +46,7 @@
 
 **ProHealth AI Assistant** is an end-to-end intelligent hospital management portal and clinical triage referral system developed to eliminate patient misdirection, optimize hospital resource utilization, and accelerate emergency patient routing. 
 
-The core technological engine is powered by fine-tuned **Bio_ClinicalBERT** (`emilyalsentzer/Bio_ClinicalBERT`), a deep transformer neural network specialized in clinical medical language processing. The system analyzes raw, unstructured, multilingual patient complaints written in Pure Bengali (বাংলা), phonetic Banglish (e.g., *"amar 2 din dhore buk betha korche"*), and English. It maps symptoms across **13 core medical specialties** (Cardiology, Orthopedics, Neurology, Gastroenterology, Dermatology, Pediatrics, Gynecology, ENT, Urology, Ophthalmology, Hematology, Psychiatry, and General Medicine) with multi-class confidence probability distributions.
+The core technological engine is powered by fine-tuned **Bio_ClinicalBERT** (`emilyalsentzer/Bio_ClinicalBERT`, pre-trained on **MIMIC-III** and **PubMed** clinical corpora), fine-tuned on the gold-standard **MTSamples (Medical Transcriptions) Benchmark Dataset** (`mtsamples.csv`). The system analyzes raw, unstructured, multilingual patient complaints written in Pure Bengali (বাংলা), phonetic Banglish (e.g., *"amar 2 din dhore buk betha korche"*), and English. It maps symptoms across **13 core medical specialties** (Cardiology, Orthopedics, Neurology, Gastroenterology, Dermatology, Pediatrics, Gynecology, ENT, Urology, Ophthalmology, Hematology, Psychiatry, and General Medicine) with multi-class confidence probability distributions.
 
 Simultaneously, a deterministic rule-based triage evaluator inspects clinical red-flag triggers to classify urgency into **3 Tiers** (Level 1 Emergency, Level 2 Urgent, Level 3 Routine). The web application features a responsive glassmorphism portal, integrated **Google Identity Services (GIS) OAuth** patient authentication, an interactive appointment booking engine with slot reservation, an active **Patient Dashboard ("My Appointments")**, and vector-rendered **PDF referral slips** generated via Python ReportLab. The application has been fully deployed and verified live on **Render.com**.
 
@@ -66,7 +66,7 @@ Simultaneously, a deterministic rule-based triage evaluator inspects clinical re
 
 | ID | Milestone / Deliverable Name | Target Delivery Date | Actual Delivery Date | Status | Comments |
 | :---: | :--- | :---: | :---: | :---: | :--- |
-| **M1** | Medical Dataset Collection & Clinical Annotation | 10 Jul 2026 | 10 Jul 2026 | **Achieved** | Multi-specialty clinical transcriptions dataset mapped to 13 departments. |
+| **M1** | Medical Dataset Collection & Clinical Annotation | 10 Jul 2026 | 10 Jul 2026 | **Achieved** | Curated **MTSamples (Medical Transcriptions) Dataset** mapped to 13 clinical departments. |
 | **M2** | Bio_ClinicalBERT Fine-Tuning on Google Colab | 20 Jul 2026 | 20 Jul 2026 | **Achieved** | Fine-tuned transformer model with PyTorch; achieved 77% accuracy & 1.00 F1 on key classes. |
 | **M3** | FastAPI Backend & Triage Logic Implementation | 28 Jul 2026 | 28 Jul 2026 | **Achieved** | RESTful endpoints for prediction, doctor rosters, booking, and PDF generation. |
 | **M4** | Glassmorphism Web Portal & Bilingual Engine | 05 Aug 2026 | 05 Aug 2026 | **Achieved** | Full English & Bangla dynamic I18N toggle with hero slider and voice input. |

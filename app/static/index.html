@@ -21,7 +21,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style.css?v=2.6.0">
 </head>
 <body>
 
@@ -63,7 +63,7 @@
             <nav class="nav-menu" id="nav-menu">
                 <a href="#hero" class="nav-link active" id="navHome"><i class="fa-solid fa-house"></i> <span>Home</span></a>
                 <a href="#ai-triage" class="nav-link highlight-link" id="navTriage"><i class="fa-solid fa-wand-magic-sparkles"></i> <span>Instant Diagnosis</span></a>
-                <a href="#doctors" class="nav-link" id="navDoctors"><i class="fa-solid fa-user-doctor"></i> <span>Doctor Directory</span></a>
+                <a href="/doctors" class="nav-link" id="navDoctors"><i class="fa-solid fa-user-doctor"></i> <span>Doctor Directory</span></a>
                 <a href="#facilities" class="nav-link" id="navFacilities"><i class="fa-solid fa-hospital"></i> <span>Facilities & Care</span></a>
                 <a href="#about" class="nav-link" id="navAbout"><i class="fa-solid fa-circle-info"></i> <span>About AI</span></a>
             </nav>
@@ -272,13 +272,26 @@
                             <div class="dept-meta" id="resDeptMeta">প্রস্তাবিত মেডিকেল বিভাগ (Recommended Department):</div>
                             <h2 class="recommended-dept-title" id="deptTitleBn">কার্ডিওলজি ও পালমোনোলজি বিভাগ</h2>
                             <div class="recommended-dept-en" id="deptTitleEn">Cardiology & Pulmonology Department</div>
+                        </div>
 
-                            <div class="specialist-callout">
-                                <div class="specialist-icon"><i class="fa-solid fa-user-doctor"></i></div>
-                                <div>
-                                    <div class="spec-label" id="resSpecMeta">পরামর্শক বিশেষজ্ঞ (Suggested Doctor):</div>
-                                    <div class="spec-name" id="specialistName">কার্ডিওলজিস্ট / বক্ষব্যাধি বিশেষজ্ঞ (Cardiologist)</div>
+                        <!-- ========================================================= -->
+                        <!-- SEPARATE DEDICATED DIV: AI RECOMMENDED DOCTOR             -->
+                        <!-- ========================================================= -->
+                        <div class="prediction-rec-doctor-div" id="predictionRecDoctorDiv">
+                            <div class="pred-doc-header">
+                                <div class="pred-doc-header-left">
+                                    <div class="pred-doc-icon">
+                                        <img src="/static/images/doctor_male_icon.png" alt="Doctor" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                    <div>
+                                        <div class="pred-doc-tag" id="predDocTagText">সুপারিশকৃত বিশেষজ্ঞ ডাক্তার (Recommended Doctor)</div>
+                                        <div class="pred-doc-sub" id="predDocSubText">বিভাগের পদবী ও অভিজ্ঞতা অনুযায়ী শীর্ষ বিশেষজ্ঞ</div>
+                                    </div>
                                 </div>
+                                <span class="pred-doc-match-badge" id="predDocTopMatchBadge"><i class="fa-solid fa-star"></i> শীর্ষ বিশেষজ্ঞ</span>
+                            </div>
+                            <div class="pred-doc-card-inner" id="predDocCardInner">
+                                <!-- Populated dynamically by app.js -->
                             </div>
                         </div>
 
@@ -308,6 +321,34 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ========================================================= -->
+            <!-- DEDICATED SEPARATE DIV: AI RECOMMENDED SPECIALIST DOCTORS -->
+            <!-- ========================================================= -->
+            <div class="ai-rec-doctors-section" id="aiRecDoctorsSection" style="display: none;">
+                <div class="ai-rec-header">
+                    <div class="ai-rec-header-info">
+                        <div class="ai-rec-badge">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span id="aiRecBadgeText">AI Matched Doctors</span>
+                        </div>
+                        <h3 class="ai-rec-title" id="aiRecTitle">
+                            প্রস্তাবিত বিভাগের সেরা বিশেষজ্ঞ ডাক্তারগণ (Recommended Doctors)
+                        </h3>
+                        <p class="ai-rec-desc" id="aiRecDesc">
+                            আপনার লক্ষণের পূর্বাভাস অনুযায়ী <span id="aiRecDeptHighlight" class="highlight-dept">কার্ডিওলজি</span> বিভাগের শীর্ষ অভিজ্ঞ ডাক্তারদের তালিকা (Professor, Senior Consultant ও রেটিং অনুযায়ী সাজানো):
+                        </p>
+                    </div>
+                    <div class="ai-rec-stats-pill">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <span id="aiRecCountText">Top Ranked Specialists</span>
+                    </div>
+                </div>
+
+                <div class="ai-rec-doctors-grid" id="aiRecDoctorsGrid">
+                    <!-- Populated dynamically by app.js -->
+                </div>
+            </div>
         </div>
     </section>
 
@@ -317,31 +358,43 @@
     <section class="doctors-section" id="doctors">
         <div class="container">
             <div class="section-header text-center">
-                <div class="section-badge" id="docSecBadge"><i class="fa-solid fa-user-doctor"></i> Specialist Directory</div>
-                <h2 class="section-title" id="docSecTitle">আমাদের অভিজ্ঞ বিশেষজ্ঞ ডাক্তারবৃন্দ</h2>
-                <p class="section-subtitle" id="docSecSubtitle">আপনার প্রয়োজনীয় বিভাগ নির্বাচন করে ডাক্তারদের সময়সূচি, যোগ্যতা ও ভিজিটিং ফি দেখুন এবং সরাসরি অ্যাপয়েন্টমেন্ট নিন।</p>
+                <div class="section-badge" id="docSecBadge"><i class="fa-solid fa-award"></i> Featured Specialists Panel</div>
+                <h2 class="section-title" id="docSecTitle">Meet Our Distinguished Medical Specialists</h2>
+                <p class="section-subtitle" id="docSecSubtitle">আমাদের হাসপাতালের সম্মানিত সিনিয়র অধ্যাপক ও চিফ কনসালটেন্টদের শীর্ষ প্যানেল।</p>
             </div>
 
             <!-- Department Filter Tabs -->
             <div class="dept-tabs-wrapper">
                 <div class="dept-tabs" id="deptTabs">
-                    <button class="tab-btn active" data-dept="all" id="tabAll">সকল বিভাগ (All)</button>
+                    <button class="tab-btn active" data-dept="all" id="tabAll">শীর্ষ প্যানেল (Featured)</button>
                     <button class="tab-btn" data-dept="cardiology" id="tabCardiology">কার্ডিওলজি (Cardiology)</button>
                     <button class="tab-btn" data-dept="orthopedics" id="tabOrthopedics">অর্থোপেডিকস (Orthopedics)</button>
                     <button class="tab-btn" data-dept="neurology" id="tabNeurology">নিউরোলজি (Neurology)</button>
-                    <button class="tab-btn" data-dept="gastroenterology" id="tabGastro">গ্যাস্ট্রোএন্টারোলজি (Gastro)</button>
-                    <button class="tab-btn" data-dept="dermatology" id="tabDermatology">ডার্মাটোলজি (Dermatology)</button>
-                    <button class="tab-btn" data-dept="pediatrics" id="tabPediatrics">শিশু রোগ (Pediatrics)</button>
+                    <button class="tab-btn" data-dept="gastroenterology" id="tabGastro">গ্যাস্ট্রো (Gastroenterology)</button>
                     <button class="tab-btn" data-dept="gynecology" id="tabGynecology">গাইনিকোলজি (Gynecology)</button>
-                    <button class="tab-btn" data-dept="ent" id="tabEnt">ইএনটি / নাক কান গলা (ENT)</button>
-                    <button class="tab-btn" data-dept="urology" id="tabUrology">ইউরোলজি ও কিডনি (Urology)</button>
-                    <button class="tab-btn" data-dept="general" id="tabGeneral">জেনারেল মেডিসিন (Medicine)</button>
+                    <button class="tab-btn" data-dept="pediatrics" id="tabPediatrics">শিশু রোগ (Pediatrics)</button>
                 </div>
             </div>
 
-            <!-- Doctor Cards Grid -->
+            <!-- Doctor Cards Grid (Curated Featured List) -->
             <div class="doctors-grid" id="doctorsGrid">
                 <!-- Dynamically populated from /api/doctors -->
+            </div>
+
+            <!-- View All Doctors Directory CTA Banner -->
+            <div class="view-all-docs-banner">
+                <div class="view-all-docs-info">
+                    <div class="view-all-docs-icon">
+                        <i class="fa-solid fa-hospital-user"></i>
+                    </div>
+                    <div>
+                        <h3 id="allDocsCtaTitle">হাসপাতালের সকল বিশেষজ্ঞ ডাক্তারের পূর্ণাঙ্গ তালিকা চান?</h3>
+                        <p id="allDocsCtaSub">আমাদের ২৫+ বিভাগে কর্মরত ১২০+ অভিজ্ঞ ডাক্তারদের বিস্তারিত প্রোফাইল, চেম্বার শিডিউল ও ভিজিটিং ফি দেখুন।</p>
+                    </div>
+                </div>
+                <a href="/doctors" class="btn btn-primary btn-lg" id="viewAllDocsBtn">
+                    <i class="fa-solid fa-user-doctor"></i> <span id="viewAllDocsBtnText">সম্পূর্ণ ডাক্তার ডিরেক্টরি দেখুন (View Full Directory)</span>
+                </a>
             </div>
         </div>
     </section>
@@ -370,22 +423,22 @@
         <div class="container">
             <div class="about-card">
                 <div class="about-content">
-                    <div class="section-badge" id="aboutBadge"><i class="fa-solid fa-shield-halved"></i> AI Transparency & Safety</div>
+                    <div class="section-badge" id="aboutBadge"><i class="fa-solid fa-shield-halved"></i> AI Transparency & Dataset Architecture</div>
                     <h2 id="aboutTitle">কীভাবে কাজ করে ProHealth AI Assistant?</h2>
-                    <p id="aboutDesc">আমাদের সিস্টেমটি <strong>Bio_ClinicalBERT</strong> ট্রান্সফরমার আর্কিটেকচার এবং ক্লিনিক্যাল ডায়াগনোসিস নলেজবেসের উপর ভিত্তি করে নির্মিত। এটি রোগীর প্রাকৃতিক ভাষার অভিযোগ (যেমন: বাংলা, বাংলিশ ও ইংরেজি) প্রসেস করে এবং উপসর্গগুলোকে যথাযথ মেডিকেল বিভাগে ক্লাসিফাই করে।</p>
+                    <p id="aboutDesc">আমাদের এআই সিস্টেমটি বিশ্বখ্যাত <strong>MTSamples (Medical Transcriptions)</strong> ক্লিনিক্যাল বেঞ্চমার্ক ডেটাসেটের উপর ফাইন-টিউন করা <strong>Bio_ClinicalBERT</strong> (যা MIMIC-III ও PubMed ডেটাসেটে প্রি-ট্রেইনড) ডিপ লার্নিং ট্রান্সফরমার আর্কিটেকচার দ্বারা পরিচালিত। এটি রোগীর বাংলা, বাংলিশ ও ইংরেজি অভিযোগ প্রসেস করে ১৩টি প্রধান মেডিকেল বিভাগে নির্ভুলভাবে ক্লাসিফাই করে।</p>
                     
                     <div class="about-features-list">
                         <div class="feat-item">
-                            <i class="fa-solid fa-check-circle"></i>
-                            <div id="feat1"><strong>বহুভাষিক প্রসেসিং:</strong> বাংলা ও বাংলিশ শব্দগুলোকে ক্লিনিক্যাল পরিভাষায় রূপান্তর করে সঠিক ফলাফল দেয়।</div>
+                            <i class="fa-solid fa-database"></i>
+                            <div id="feat1"><strong>প্রশিক্ষণ ডেটাসেট (MTSamples & MIMIC-III):</strong> হাজার হাজার বাস্তব ক্লিনিক্যাল কেস নোট ও ট্রান্সক্রিপশন ডেটাসেটে প্রশিক্ষিত।</div>
                         </div>
                         <div class="feat-item">
-                            <i class="fa-solid fa-check-circle"></i>
-                            <div id="feat2"><strong>স্বয়ংক্রিয় ইমার্জেন্সি ডিটেকশন:</strong> হার্ট অ্যাটাক, স্ট্রোক বা তীব্র শ্বাসকষ্টের মতো রেড-ফ্ল্যাগ লক্ষণ দেখলে তৎক্ষণাৎ লেভেল ১ ইমার্জেন্সি অ্যালার্ট দেয়।</div>
+                            <i class="fa-solid fa-language"></i>
+                            <div id="feat2"><strong>বহুভাষিক প্রসেসিং:</strong> বাংলা, বাংলিশ ও ইংরেজি টেক্সট সরাসরি বিশ্লেষণ করে তাৎক্ষণিক রেজাল্ট দেয়।</div>
                         </div>
                         <div class="feat-item">
-                            <i class="fa-solid fa-check-circle"></i>
-                            <div id="feat3"><strong>হাসপাতাল রিসোর্স অপ্টিমাইজেশন:</strong> রোগীকে সঠিক ডাক্তারের কাছে পৌঁছে দিয়ে সময় ও খরচ বাঁচায়।</div>
+                            <i class="fa-solid fa-truck-medical"></i>
+                            <div id="feat3"><strong>স্বয়ংক্রিয় ইমার্জেন্সি ডিটেকশন:</strong> হার্ট অ্যাটাক, স্ট্রোক বা তীব্র শ্বাসকষ্টের মতো রেড-ফ্ল্যাগ লক্ষণ দেখলে তৎক্ষণাৎ লেভেল ১ ইমার্জেন্সি অ্যালার্ট দেয়।</div>
                         </div>
                     </div>
                 </div>
@@ -393,8 +446,8 @@
                     <div class="ai-chip-visual">
                         <i class="fa-solid fa-microchip"></i>
                         <h3>Bio_ClinicalBERT</h3>
-                        <span id="chipSubText">13 Core Medical Departments</span>
-                        <div class="chip-metric">99.4% Accuracy</div>
+                        <span id="chipSubText">Dataset: MTSamples & MIMIC-III</span>
+                        <div class="chip-metric">13 Clinical Specialties</div>
                     </div>
                 </div>
             </div>
@@ -523,6 +576,7 @@
                             <option value="Gynecology & Obstetrics">গাইনিকোলজি ও অবস (Gynecology)</option>
                             <option value="ENT (Otolaryngology)">ইএনটি / নাক কান গলা (ENT)</option>
                             <option value="Urology & Nephrology">ইউরোলজি ও কিডনি (Urology)</option>
+                            <option value="Ophthalmology">চক্ষু বিশেষজ্ঞ (Ophthalmology & Eye)</option>
                             <option value="General Medicine">জেনারেল মেডিসিন (General Medicine)</option>
                         </select>
                     </div>
@@ -632,6 +686,6 @@
     </footer>
 
     <!-- App JavaScript -->
-    <script src="/static/app.js"></script>
+    <script src="/static/app.js?v=2.6.0"></script>
 </body>
 </html>

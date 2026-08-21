@@ -17,7 +17,7 @@
 Modern healthcare facilities often face severe misdirection of patients to incorrect outpatient clinics, leading to long queues and delayed interventions. **ProHealth AI Assistant** solves this by providing:
 
 1. **Multilingual Symptom Understanding:** Processes patient complaints written in English, Bengali (বাংলা), or phonetic Banglish (e.g., *"amar 2 din dhore buk betha korche"*).
-2. **Clinical Transformer Classification:** Uses **Bio_ClinicalBERT** (`emilyalsentzer/Bio_ClinicalBERT`) fine-tuned on clinical medical datasets to predict the exact department with confidence distributions.
+2. **Clinical Transformer Classification:** Uses **Bio_ClinicalBERT** (`emilyalsentzer/Bio_ClinicalBERT`) fine-tuned on the gold-standard **MTSamples (Medical Transcriptions) Benchmark Dataset** (`mtsamples.csv`), pre-trained on **MIMIC-III Clinical Database** and **PubMed**, to predict the exact department with confidence distributions.
 3. **Automated Triage Urgency Level:** Identifies red-flag emergency symptoms (heart attack, stroke, acute respiratory distress) to trigger **Level 1 (Emergency)** alerts.
 4. **Google OAuth & Patient Dashboard:** Integrated Google Sign-In with persistent booking history and tracking IDs.
 5. **PDF Referral Generation:** Generates vector-rendered official hospital referral tickets using Python ReportLab.
@@ -98,9 +98,9 @@ ProHealth-Ai-Assistant/
 
 ---
 
-## 📈 5. Model Evaluation & Classification Report
+## 📈 5. Model Training & Evaluation on MTSamples Dataset
 
-The model was fine-tuned on Google Colab using `emilyalsentzer/Bio_ClinicalBERT` over the multi-specialty clinical transcriptions dataset.
+The transformer sequence classifier was fine-tuned on Google Colab using `emilyalsentzer/Bio_ClinicalBERT` over the **MTSamples (Medical Transcriptions) Benchmark Dataset** (`mtsamples.csv`), categorized into 13 unified hospital specialties.
 
 ### 📑 Detailed Classification Report
 
@@ -215,7 +215,8 @@ The web portal is configured for continuous deployment on **Render.com**:
 
 * **Developer:** **[Tasmiad Hasan](https://github.com/tasmiadhasan)**
 * **Project:** CSE440 Capstone Project - Intelligent Hospital Management & Triage System
-* **Model:** Bio_ClinicalBERT (`emilyalsentzer/Bio_ClinicalBERT`) via HuggingFace
+* **Fine-Tuning Dataset:** **MTSamples (Medical Transcriptions) Benchmark Dataset**
+* **Base Pre-Trained Model:** Bio_ClinicalBERT (`emilyalsentzer/Bio_ClinicalBERT`) pre-trained on **MIMIC-III** and **PubMed** corpora
 
 ---
 

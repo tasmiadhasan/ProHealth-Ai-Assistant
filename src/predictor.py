@@ -50,18 +50,18 @@ class MedicalDepartmentPredictor:
         dept_scores = {dept: 0.05 for dept in DEFAULT_DEPARTMENTS}
 
         keywords_map = {
-            "Cardiology": ["chest pain", "heart", "palpitation", "cardiac", "angina", "pulse", "blood pressure", "hypertension", "arm numbness", "left arm"],
-            "Neurology": ["headache", "migraine", "dizziness", "seizure", "numbness", "brain", "spine", "stroke", "tremor", "memory loss", "paralysis", "vertigo"],
-            "Orthopedics": ["bone", "joint", "fracture", "knee", "back pain", "shoulder", "ligament", "muscle", "dislocation", "swelling in ankle", "spine ache"],
-            "Gastroenterology": ["stomach", "vomiting", "diarrhea", "nausea", "abdominal pain", "gastric", "acidity", "indigestion", "constipation", "liver", "cramps"],
-            "Dermatology": ["skin", "rash", "itching", "eczema", "acne", "allergy", "hair loss", "blister", "mole", "lesion", "peeling"],
-            "Pulmonology": ["cough", "breathing", "shortness of breath", "asthma", "wheezing", "chest tightness", "lungs", "sputum", "respiratory"],
-            "ENT (Otolaryngology)": ["ear", "nose", "throat", "sinus", "tonsil", "hearing", "nasal", "earache", "sore throat", "tinnitus"],
-            "Urology": ["urine", "urinary", "kidney", "bladder", "burning urination", "flank pain", "prostate", "frequent urination", "uti"],
-            "Gynecology & Obstetrics": ["pregnancy", "period", "menstrual", "pelvic pain", "vaginal", "ovary", "uterus", "cramps"],
-            "Pediatrics": ["child", "baby", "infant", "toddler", "growth", "newborn", "pediatric"],
-            "Ophthalmology": ["eye", "vision", "blur", "red eye", "cataract", "retina", "cornea", "eye pain", "dry eye"],
-            "General Medicine": ["fever", "weakness", "fatigue", "body ache", "shivering", "malaise", "loss of appetite"]
+            "Cardiology": ["chest pain", "heart", "palpitation", "cardiac", "angina", "pulse", "blood pressure", "hypertension", "arm numbness", "left arm", "cardiac surgery", "bypass", "angioplasty"],
+            "Neurology": ["headache", "migraine", "dizziness", "seizure", "numbness", "brain", "spine", "stroke", "tremor", "memory loss", "paralysis", "vertigo", "neurosurgery", "brain tumor"],
+            "Orthopedics": ["bone", "joint", "fracture", "knee", "back pain", "shoulder", "ligament", "muscle", "dislocation", "swelling in ankle", "spine ache", "orthopedic surgery", "joint replacement", "spine surgery", "bone operation"],
+            "Gastroenterology": ["stomach", "vomiting", "diarrhea", "nausea", "abdominal pain", "gastric", "acidity", "indigestion", "constipation", "liver", "cramps", "appendix", "gallbladder", "gallstone", "hernia", "surgery", "operation", "general surgery", "laparoscopic surgery"],
+            "Dermatology": ["skin", "rash", "itching", "eczema", "acne", "allergy", "hair loss", "blister", "mole", "lesion", "peeling", "skin biopsy", "laser"],
+            "Pulmonology": ["cough", "breathing", "shortness of breath", "asthma", "wheezing", "chest tightness", "lungs", "sputum", "respiratory", "tuberculosis", "pneumonia"],
+            "ENT (Otolaryngology)": ["ear", "nose", "throat", "sinus", "tonsil", "hearing", "nasal", "earache", "sore throat", "tinnitus", "ent surgery", "sinus surgery", "tonsillectomy"],
+            "Urology": ["urine", "urinary", "kidney", "bladder", "burning urination", "flank pain", "prostate", "frequent urination", "uti", "kidney stone", "urology surgery", "renal stone"],
+            "Gynecology & Obstetrics": ["pregnancy", "period", "menstrual", "pelvic pain", "vaginal", "ovary", "uterus", "cramps", "cesarean", "c-section", "gynae surgery", "infertility"],
+            "Pediatrics": ["child", "baby", "infant", "toddler", "growth", "newborn", "pediatric", "child fever", "vaccination", "pediatric care"],
+            "Ophthalmology": ["eye", "vision", "blur", "red eye", "cataract", "retina", "cornea", "eye pain", "dry eye", "eye surgery", "phaco", "lasik"],
+            "General Medicine": ["fever", "weakness", "fatigue", "body ache", "shivering", "malaise", "loss of appetite", "weight loss", "general checkup", "diabetes"]
         }
 
         for dept, words in keywords_map.items():

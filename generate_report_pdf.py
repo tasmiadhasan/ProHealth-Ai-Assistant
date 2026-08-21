@@ -154,7 +154,8 @@ def build_progress_report_pdf():
     exec_summary = (
         "<b>ProHealth AI Assistant</b> is an end-to-end intelligent hospital management portal and clinical triage referral "
         "system developed to eliminate patient misdirection, optimize hospital resource utilization, and accelerate emergency routing. "
-        "Powered by fine-tuned <b>Bio_ClinicalBERT</b> (emilyalsentzer/Bio_ClinicalBERT), the system analyzes unstructured multilingual "
+        "Powered by <b>Bio_ClinicalBERT</b> (emilyalsentzer/Bio_ClinicalBERT, pre-trained on MIMIC-III & PubMed) and fine-tuned on "
+        "the benchmark <b>MTSamples (Medical Transcriptions) Dataset</b> (mtsamples.csv), the system analyzes unstructured multilingual "
         "complaints (Pure Bengali, phonetic Banglish, and English) and maps them across <b>13 core medical specialties</b> with confidence probabilities. "
         "Simultaneously, a deterministic rule-based urgency triage evaluator identifies critical red-flag triggers across 3 levels (Emergency, Urgent, Routine). "
         "The application integrates Google Identity Services OAuth, interactive doctor booking, persistent database tracking, and ReportLab PDF referral tickets, "
@@ -183,7 +184,7 @@ def build_progress_report_pdf():
     elements.append(Paragraph("1.3. Milestones and Deliverables", h2))
     m_data = [
         [Paragraph("<b>ID</b>", th_style), Paragraph("<b>Milestone Name</b>", th_style), Paragraph("<b>Target Date</b>", th_style), Paragraph("<b>Actual Date</b>", th_style), Paragraph("<b>Status</b>", th_style), Paragraph("<b>Comments</b>", th_style)],
-        [Paragraph("M1", cell_center), Paragraph("Dataset Collection & Labeling", cell_style), Paragraph("10 Jul 2026", cell_center), Paragraph("10 Jul 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("13 specialties annotated", cell_style)],
+        [Paragraph("M1", cell_center), Paragraph("MTSamples Dataset Annotation", cell_style), Paragraph("10 Jul 2026", cell_center), Paragraph("10 Jul 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("13 clinical specialties mapped", cell_style)],
         [Paragraph("M2", cell_center), Paragraph("Bio_ClinicalBERT Fine-Tuning", cell_style), Paragraph("20 Jul 2026", cell_center), Paragraph("20 Jul 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("77% accuracy / 1.00 F1 key", cell_style)],
         [Paragraph("M3", cell_center), Paragraph("FastAPI Backend & Triage API", cell_style), Paragraph("28 Jul 2026", cell_center), Paragraph("28 Jul 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("Prediction & PDF endpoints", cell_style)],
         [Paragraph("M4", cell_center), Paragraph("Web Portal & Bilingual I18N", cell_style), Paragraph("05 Aug 2026", cell_center), Paragraph("05 Aug 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("Bangla/English toggle & UI", cell_style)],
