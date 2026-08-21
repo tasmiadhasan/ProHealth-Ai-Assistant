@@ -724,27 +724,48 @@ class PdfRequest(BaseModel):
     patient_email: Optional[str] = None
     patient_id: Optional[str] = None
 
-APPOINTMENTS_FILE = PROJECT_ROOT / "data" / "appointments.json"
+IN_MEMORY_APPOINTMENTS: List[Dict[str, Any]] = []
+
+def get_writable_appointments_path() -> Path:
+    target = PROJECT_ROOT / "data" / "appointments.json"
+    try:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if not target.exists():
+            with open(target, "w", encoding="utf-8") as f:
+                f.write("[]")
+        return target
+    except Exception:
+        tmp_target = Path("/tmp/appointments.json")
+        try:
+            if not tmp_target.exists():
+                with open(tmp_target, "w", encoding="utf-8") as f:
+                    f.write("[]")
+            return tmp_target
+        except Exception:
+            return target
 
 def load_appointments() -> List[Dict[str, Any]]:
-    if not APPOINTMENTS_FILE.exists():
-        return []
-    try:
-        with open(APPOINTMENTS_FILE, "r", encoding="utf-8") as f:
-            content = f.read().strip()
-            if not content:
-                return []
-            return json.loads(content)
-    except Exception:
-        return []
+    global IN_MEMORY_APPOINTMENTS
+    path = get_writable_appointments_path()
+    if path.exists():
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                content = f.read().strip()
+                if content:
+                    return json.loads(content)
+        except Exception as e:
+            print(f"Error reading appointments: {e}")
+    return IN_MEMORY_APPOINTMENTS
 
 def save_appointments(data: List[Dict[str, Any]]):
+    global IN_MEMORY_APPOINTMENTS
+    IN_MEMORY_APPOINTMENTS = data
+    path = get_writable_appointments_path()
     try:
-        APPOINTMENTS_FILE.parent.mkdir(parents=True, exist_ok=True)
-        with open(APPOINTMENTS_FILE, "w", encoding="utf-8") as f:
+        with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
     except Exception as e:
-        print(f"Error saving appointments: {e}")
+        print(f"Warning: File save failed ({e}), kept in in-memory store.")
 
 # ---------------------------------------------------------
 # API Endpoints

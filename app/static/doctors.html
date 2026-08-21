@@ -254,96 +254,154 @@
     </div>
 
     <!-- ========================================================= -->
-    <!-- 5. APPOINTMENT BOOKING MODAL                              -->
+    <!-- 5. GOOGLE SIGN IN & DASHBOARD MODALS                      -->
+    <!-- ========================================================= -->
+    <div class="modal-backdrop" id="signInPromptModal">
+        <div class="modal-dialog signin-dialog">
+            <div class="signin-card">
+                <button class="modal-close" onclick="closeSignInPrompt()">&times;</button>
+                <div class="signin-brand-header">
+                    <div class="signin-badge"><i class="fa-brands fa-google"></i> Google Secure Access</div>
+                    <h3 id="signInModalTitle">গুগল দিয়ে সাইন ইন করুন</h3>
+                    <p id="signInModalDesc">ডাক্তার অ্যাপয়েন্টমেন্ট বুকিং করতে এবং আপনার পূর্বের বুকিং হিস্ট্রি সংরক্ষণ করতে গুগল অ্যাকাউন্ট দিয়ে সাইন ইন করুন।</p>
+                </div>
+                <div class="signin-features-mini">
+                    <div><i class="fa-solid fa-circle-check"></i> <span id="signInFeat1">১০০% নিরাপদ ও ভেরিফাইড গুগল অথেন্টিকেশন</span></div>
+                    <div><i class="fa-solid fa-circle-check"></i> <span id="signInFeat2">১-ক্লিকে তাৎক্ষণিক অ্যাপয়েন্টমেন্ট বুকিং সুবিধা</span></div>
+                    <div><i class="fa-solid fa-circle-check"></i> <span id="signInFeat3">সকল পূর্বের অ্যাপয়েন্টমেন্ট ও প্রেস্ক্রিপশন হিস্ট্রি</span></div>
+                </div>
+                <div class="g-signin-wrapper">
+                    <div id="g_id_modal_signin_btn"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="userDashboardModal">
+        <div class="modal-dialog dashboard-dialog">
+            <div class="user-dashboard-header">
+                <div class="user-profile-summary">
+                    <div class="user-avatar-wrap">
+                        <img id="dashUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="User Avatar">
+                        <span class="user-online-status"></span>
+                    </div>
+                    <div class="user-details">
+                        <h3 id="dashUserName">Google Patient</h3>
+                        <p id="dashUserEmail"><i class="fa-regular fa-envelope"></i> patient@gmail.com</p>
+                        <div class="user-badges">
+                            <span class="user-badge-tag"><i class="fa-brands fa-google"></i> <span id="dashVerifiedBadge">Verified Google Patient</span></span>
+                            <span class="user-badge-tag highlight" id="dashBookingCountBadge"><i class="fa-regular fa-calendar-check"></i> <span id="dashBookingCountText">0 Appointments</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right-actions">
+                    <button class="btn btn-sm btn-outline-danger" id="dashSignOutBtn" onclick="handleGoogleSignOut()">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> <span id="dashSignOutText">Sign Out</span>
+                    </button>
+                    <button class="btn-close" onclick="closeUserDashboard()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+            <div class="dashboard-tab-content active" id="dashTabBookings">
+                <div class="dash-section-header">
+                    <h4 id="dashHistoryTitle"><i class="fa-solid fa-calendar-days"></i> আমার অ্যাপয়েন্টমেন্ট হিস্ট্রি (My Appointments)</h4>
+                    <button class="btn btn-sm btn-outline" id="dashRefreshBtn" onclick="loadUserAppointments()"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+                </div>
+                <div class="user-appointments-container" id="userAppointmentsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- 6. APPOINTMENT BOOKING MODAL                              -->
     <!-- ========================================================= -->
     <div class="modal-backdrop" id="appointmentModal">
-        <div class="modal-card">
+        <div class="modal-dialog">
             <div class="modal-header">
-                <div class="modal-header-left">
-                    <div class="modal-icon"><i class="fa-regular fa-calendar-check"></i></div>
-                    <div>
-                        <h3 class="modal-title" id="modalTitle">ডাক্তার অ্যাপয়েন্টমেন্ট বুকিং</h3>
-                        <p class="modal-subtitle" id="modalSub">সহজে ও দ্রুত সরাসরি হাসপাতালের স্লট নিশ্চিত করুন</p>
-                    </div>
+                <div class="modal-title-group">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <h3 id="modalHeaderTitle">ডাক্তার অ্যাপয়েন্টমেন্ট বুকিং</h3>
                 </div>
                 <button class="modal-close" onclick="closeAppointmentModal()">&times;</button>
             </div>
+            
+            <form id="appointmentForm" onsubmit="submitAppointment(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label id="lblPatientName">রোগীর পুরো নাম (Patient Full Name) *</label>
+                        <input type="text" id="patientName" required placeholder="উদাহরণ: মোঃ জামিল হোসেন">
+                    </div>
 
-            <form id="appointmentForm" onsubmit="handleAppointmentSubmit(event)">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label id="lblPatName">রোগীর নাম *</label>
-                        <input type="text" id="patientName" required placeholder="পুরো নাম লিখুন">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label id="lblPhone">মোবাইল নম্বর (Phone Number) *</label>
+                            <input type="tel" id="patientPhone" required placeholder="017XXXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label id="lblAge">রোগীর বয়স (Age)</label>
+                            <input type="number" id="patientAge" placeholder="যেমন: 35">
+                        </div>
                     </div>
+
                     <div class="form-group">
-                        <label id="lblPatPhone">মোবাইল নম্বর *</label>
-                        <input type="tel" id="patientPhone" required placeholder="017XXXXXXXX">
-                    </div>
-                    <div class="form-group">
-                        <label id="lblPatAge">বয়স</label>
-                        <input type="number" id="patientAge" placeholder="যেমন: 35">
-                    </div>
-                    <div class="form-group">
-                        <label id="lblDept">বিভাগ *</label>
-                        <select id="appointDept" required onchange="populateDoctorsForDept(this.value)">
-                            <option value="">-- বিভাগ নির্বাচন করুন --</option>
-                            <option value="Cardiology & Pulmonology">Cardiology & Pulmonology (কার্ডিওলজি)</option>
-                            <option value="Orthopedics">Orthopedics & Trauma (অর্থোপেডিকস)</option>
-                            <option value="Neurology">Neurology & Brain (নিউরোলজি)</option>
-                            <option value="Gastroenterology">Gastroenterology (গ্যাস্ট্রোএন্টারোলজি)</option>
-                            <option value="Dermatology">Dermatology & Laser (ডার্মাটোলজি)</option>
-                            <option value="ENT (Otolaryngology)">ENT / নাক কান গলা</option>
-                            <option value="Gynecology & Obstetrics">Gynecology & Obstetrics (গাইনি)</option>
-                            <option value="Pediatrics">Pediatrics & Child (শিশু রোগ)</option>
-                            <option value="Urology & Nephrology">Urology & Nephrology (ইউরোলজি)</option>
-                            <option value="Ophthalmology">Ophthalmology (চক্ষু রোগ)</option>
-                            <option value="General Medicine">General Medicine (মেডিসিন)</option>
+                        <label id="lblDept">মেডিকেল বিভাগ (Department) *</label>
+                        <select id="modalDeptSelect" required onchange="updateModalDoctorOptions()">
+                            <option value="Cardiology & Pulmonology">কার্ডিওলজি ও পালমোনোলজি (Cardiology & Pulmonology)</option>
+                            <option value="Orthopedics">অর্থোপেডিকস (Orthopedics)</option>
+                            <option value="Neurology">নিউরোলজি (Neurology)</option>
+                            <option value="Gastroenterology">গ্যাস্ট্রোএন্টারোলজি (Gastroenterology)</option>
+                            <option value="Dermatology">ডার্মাটোলজি (Dermatology)</option>
+                            <option value="Pediatrics">পেডিয়াট্রিক্স (Pediatrics)</option>
+                            <option value="Gynecology & Obstetrics">গাইনিকোলজি ও অবস (Gynecology)</option>
+                            <option value="ENT (Otolaryngology)">ইএনটি / নাক কান গলা (ENT)</option>
+                            <option value="Urology & Nephrology">ইউরোলজি ও কিডনি (Urology)</option>
+                            <option value="Ophthalmology">চক্ষু বিশেষজ্ঞ (Ophthalmology & Eye)</option>
+                            <option value="General Medicine">জেনারেল মেডিসিন (General Medicine)</option>
                         </select>
                     </div>
-                    <div class="form-group full-width">
-                        <label id="lblDoctor">পছন্দের ডাক্তার (ঐচ্ছিক)</label>
-                        <select id="appointDoctor">
-                            <option value="">-- যে কোনো উপলব্ধ সিনিয়র স্পেশালিস্ট --</option>
+
+                    <div class="form-group">
+                        <label id="lblDoctor">পছন্দের ডাক্তার (Select Doctor)</label>
+                        <select id="modalDoctorSelect">
+                            <!-- Populated dynamically -->
                         </select>
                     </div>
-                    <div class="form-group full-width">
-                        <label id="lblDate">পছন্দের তারিখ *</label>
-                        <input type="date" id="appointDate" required>
+
+                    <div class="form-group">
+                        <label id="lblDate">অ্যাপয়েন্টমেন্টের তারিখ (Preferred Date) *</label>
+                        <input type="date" id="appointmentDate" required>
                     </div>
-                    <div class="form-group full-width">
-                        <label id="lblNotes">রোগের সংক্ষিপ্ত বিবরণ</label>
-                        <textarea id="appointNotes" rows="2" placeholder="আপনার প্রধান সমস্যা লিখুন..."></textarea>
+
+                    <div class="form-group">
+                        <label id="lblSymptoms">সংক্ষিপ্ত সমস্যা বা উপসর্গ (Brief Symptoms)</label>
+                        <input type="text" id="modalSymptoms" placeholder="যেমন: তীব্র বুকে ব্যথা ও কাশি">
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline" onclick="closeAppointmentModal()" id="btnCancel">বাতিল</button>
-                    <button type="submit" class="btn btn-primary" id="btnSubmitAppoint">
-                        <i class="fa-regular fa-paper-plane"></i> <span id="btnSubmitText">বুকিং নিশ্চিত করুন</span>
-                    </button>
+                    <button type="button" class="btn btn-outline" id="modalCancelBtn" onclick="closeAppointmentModal()">বাতিল</button>
+                    <button type="submit" class="btn btn-accent" id="modalSubmitBtn"><i class="fa-solid fa-check"></i> নিশ্চিত করুন (Confirm Booking)</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- ========================================================= -->
-    <!-- 6. CONFIRMATION TICKET MODAL                             -->
-    <!-- ========================================================= -->
-    <div class="modal-backdrop" id="ticketModal">
-        <div class="modal-card ticket-card">
-            <div class="ticket-header">
-                <div class="ticket-icon-success"><i class="fa-solid fa-circle-check"></i></div>
-                <h3 id="ticketSuccessTitle">অ্যাপয়েন্টমেন্ট সফলভাবে নিশ্চিত হয়েছে!</h3>
-                <p id="ticketSuccessSub">আপনার ডিজিটাল কনফার্মেশন স্লট নিচে প্রদান করা হলো</p>
-            </div>
+    <!-- Booking Confirmation Modal -->
+    <div class="modal-backdrop" id="confirmationModal">
+        <div class="modal-dialog confirmation-dialog">
+            <div class="confirmation-content text-center">
+                <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <h2 id="confirmSuccessTitle">অ্যাপয়েন্টমেন্ট বুকিং সম্পন্ন হয়েছে!</h2>
+                <p id="confirmCodeLabel">আপনার বুকিং কনফার্মেশন কোড:</p>
+                <div class="ticket-code" id="confirmTicketId">PH-A89F2C</div>
+                
+                <div class="ticket-details-box" id="confirmDetailsBox">
+                    <!-- Dynamic details -->
+                </div>
 
-            <div class="ticket-body" id="ticketBody">
-                <!-- Dynamically populated -->
-            </div>
-
-            <div class="modal-footer" style="justify-content: center; gap: 1rem;">
-                <button class="btn btn-outline" onclick="window.print()"><i class="fa-solid fa-print"></i> প্রিন্ট</button>
-                <button class="btn btn-primary" onclick="closeTicketModal()">ঠিক আছে</button>
+                <div class="confirmation-actions">
+                    <button class="btn btn-outline" onclick="window.print()"><i class="fa-solid fa-print"></i> স্লিপ প্রিন্ট করুন</button>
+                    <button class="btn btn-accent" onclick="closeConfirmationModal()"><i class="fa-solid fa-check"></i> ঠিক আছে (Done)</button>
+                </div>
             </div>
         </div>
     </div>
