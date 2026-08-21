@@ -212,15 +212,10 @@ The web portal is configured for continuous serverless deployment on **Vercel**:
 
 ---
 
-## 👨‍💻 Project Team Members & Acknowledgments
+## 👨‍💻 Author & Acknowledgments
 
-| Team Member Name | Core Role & Responsibilities |
-| :--- | :--- |
-| **[Tasmiad Hasan](https://github.com/tasmiadhasan)** | **Project Lead & PM** — Bio_ClinicalBERT Fine-Tuning, Full-Stack Architecture & Vercel Cloud Deployment |
-| **Al Mamun Oualid** | **Core Developer** — Data Engineering, MTSamples Preprocessing, FastAPI REST Endpoints & Storage |
-| **S M Tazbid Siddiqui** | **Core Developer** — Frontend UI/UX Design, Bilingual Localization, PDF Engine & System Testing |
-
-* **Capstone Course:** CSE440 Capstone Project — Intelligent Hospital Management & Triage System
+* **Lead Developer & Architect:** **[Tasmiad Hasan](https://github.com/tasmiadhasan)**
+* **Project:** CSE440 Capstone Project — Intelligent Hospital Management & Triage System
 * **Fine-Tuning Dataset:** **MTSamples (Medical Transcriptions) Benchmark Dataset** (`mtsamples.csv`)
 * **Base Pre-Trained Model:** Bio_ClinicalBERT (`emilyalsentzer/Bio_ClinicalBERT`) pre-trained on **MIMIC-III** and **PubMed** corpora
 
