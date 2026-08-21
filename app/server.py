@@ -904,8 +904,14 @@ def book_appointment(req: AppointmentRequest):
     import uuid
     ticket_id = f"PH-{uuid.uuid4().hex[:6].upper()}"
     
-    doc_info = next((d for d in DOCTORS_DATABASE if d["name"] == req.doctor_name or d["id"] == req.doctor_id), None)
+    doc_info = next((d for d in DOCTORS_DATABASE if (req.doctor_name and (d["name"].lower() in req.doctor_name.lower() or req.doctor_name.lower() in d["name"].lower() or d.get("name_bn", "") in req.doctor_name)) or d["id"] == req.doctor_id), None)
     
+    avatar_path = "/static/images/doctor_male_icon.png"
+    if doc_info and doc_info.get("avatar"):
+        avatar_path = doc_info["avatar"]
+    elif req.doctor_name and any(female_title in req.doctor_name for female_title in ["Dr. Farhana", "Dr. Sadia", "Dr. Nasreen", "Dr. Samia", "Dr. Nusrat", "Dr. Tanjina", "ডাঃ ফারহানা", "ডাঃ সাদিয়া", "ডাঃ নাসরীন", "ডাঃ সামিয়া", "ডাঃ নুসরাত", "ডাঃ তানজিনা"]):
+        avatar_path = "/static/images/doctor_female_icon.png"
+
     appointment_record = {
         "ticket_id": ticket_id,
         "patient_name": req.patient_name,
@@ -918,7 +924,7 @@ def book_appointment(req: AppointmentRequest):
         "room": doc_info["room"] if doc_info else "OPD Desk 101",
         "time": doc_info["days"] if doc_info else "5:00 PM - 9:00 PM",
         "fee": doc_info["fee"] if doc_info else "৳ 1,000",
-        "avatar": doc_info["avatar"] if doc_info else "👨‍⚕️",
+        "avatar": avatar_path,
         "symptoms": req.symptoms or "General Consultation",
         "user_email": (req.user_email or "").strip().lower(),
         "status": "Confirmed",

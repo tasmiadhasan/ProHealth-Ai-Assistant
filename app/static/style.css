@@ -3433,3 +3433,157 @@ a {
 [data-theme="light"] .rec-fee-amount {
     color: #059669 !important;
 }
+
+/* =============================================================================
+   PATIENT DASHBOARD & APPOINTMENT HISTORY CARDS
+   ============================================================================= */
+.user-appointments-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1rem;
+}
+
+.dash-appointment-card {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 1.4rem;
+    transition: all 0.25s ease;
+}
+
+.dash-appointment-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.15);
+}
+
+.apt-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.apt-doc-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.apt-doc-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(2, 132, 199, 0.15);
+    border: 2px solid rgba(2, 132, 199, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.apt-doc-avatar img,
+.doc-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 3px;
+}
+
+.apt-doc-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.apt-doc-dept {
+    font-size: 0.85rem;
+    color: #38BDF8;
+    font-weight: 500;
+}
+
+.apt-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34D399;
+    padding: 0.35rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.pulse-dot-green {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 8px #10B981;
+}
+
+.apt-card-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.8rem;
+    padding: 1rem 0;
+}
+
+.apt-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.apt-meta-item i {
+    color: var(--primary);
+    font-size: 0.95rem;
+}
+
+.apt-meta-item strong {
+    color: #F1F5F9;
+    display: block;
+}
+
+.apt-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.apt-ticket-id {
+    font-family: monospace;
+    font-weight: 700;
+    color: #F59E0B;
+    background: rgba(245, 158, 11, 0.1);
+    padding: 0.25rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+[data-theme="light"] .dash-appointment-card {
+    background: #FFFFFF !important;
+    border-color: #E2E8F0 !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .apt-card-top,
+[data-theme="light"] .apt-card-footer {
+    border-color: #F1F5F9 !important;
+}
+
+[data-theme="light"] .apt-doc-name {
+    color: #0F172A !important;
+}
+
+[data-theme="light"] .apt-meta-item strong {
+    color: #1E293B !important;
+}

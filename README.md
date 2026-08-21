@@ -1,13 +1,13 @@
 # 🏥 ProHealth AI Assistant | Intelligent Hospital Portal & Bio_ClinicalBERT Triage System
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render.com-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://prohealth-ai-assistant.onrender.com/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://pro-health-ai-assistant.vercel.app/)
 [![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C.svg?style=for-the-badge&logo=pytorch)](https://pytorch.org/)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-Bio__ClinicalBERT-FFD21E.svg?style=for-the-badge&logo=huggingface)](https://huggingface.co/emilyalsentzer/Bio_ClinicalBERT)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Modern%20Web%20Portal-009688.svg?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-> 🌐 **Live Web Application:** [https://prohealth-ai-assistant.onrender.com/](https://prohealth-ai-assistant.onrender.com/)  
+> 🌐 **Live Web Application:** [https://pro-health-ai-assistant.vercel.app/](https://pro-health-ai-assistant.vercel.app/)  
 > 🏥 **ProHealth AI Assistant** is an intelligent, bilingual (English & Bangla) hospital management portal and clinical triage system. Powered by a fine-tuned **Bio_ClinicalBERT** transformer neural network, it processes natural language patient complaints, identifies medical specialties across 13 core hospital wings, detects clinical urgency (Emergency, Urgent, Routine), facilitates direct doctor appointment bookings, and generates vector-rendered PDF referral slips.
 
 ---
@@ -201,13 +201,14 @@ The FastAPI backend exposes the following RESTful endpoints:
 
 ---
 
-## ☁️ 8. Cloud Deployment (Render.com)
+## ☁️ 8. Cloud Deployment (Vercel Serverless)
 
-The web portal is configured for continuous deployment on **Render.com**:
+The web portal is configured for continuous serverless deployment on **Vercel**:
 
-- **Runtime:** `Python 3`
-- **Build Command:** `pip install --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cpu && pip install -r requirements.txt`
-- **Start Command:** `uvicorn app.server:app --host 0.0.0.0 --port $PORT`
+- **Live URL:** [https://pro-health-ai-assistant.vercel.app/](https://pro-health-ai-assistant.vercel.app/)
+- **Configuration:** `vercel.json` with `@vercel/python` builder
+- **Entrypoint:** `api/index.py` serving ASGI FastAPI application
+- **Bundle Optimization:** Serverless package under 50 MB with zero-dependency clinical triage fallback
 
 ---
 

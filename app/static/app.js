@@ -277,15 +277,31 @@ function renderUserAppointments(appointments) {
         return;
     }
 
+function getDoctorAvatarHTML(avatar) {
+    if (!avatar) {
+        return `<img src="/static/images/doctor_male_icon.png" alt="Doctor" class="doc-avatar-img">`;
+    }
+    if (typeof avatar === "string") {
+        if (avatar.startsWith("/") || avatar.startsWith("http") || avatar.includes(".png") || avatar.includes(".jpg") || avatar.includes(".svg")) {
+            return `<img src="${avatar}" alt="Doctor" class="doc-avatar-img" onerror="this.src='/static/images/doctor_male_icon.png'">`;
+        }
+        if (avatar.includes("female") || avatar.includes("👩")) {
+            return `<img src="/static/images/doctor_female_icon.png" alt="Doctor" class="doc-avatar-img">`;
+        }
+    }
+    return `<img src="/static/images/doctor_male_icon.png" alt="Doctor" class="doc-avatar-img">`;
+}
+
     container.innerHTML = "";
     appointments.forEach(apt => {
         const card = document.createElement("div");
         card.className = "dash-appointment-card";
+        const docAvatar = getDoctorAvatarHTML(apt.avatar);
 
         card.innerHTML = `
             <div class="apt-card-top">
                 <div class="apt-doc-info">
-                    <div class="apt-doc-avatar">${apt.avatar || "👨‍⚕️"}</div>
+                    <div class="apt-doc-avatar">${docAvatar}</div>
                     <div>
                         <h4 class="apt-doc-name">${apt.doctor_name}</h4>
                         <span class="apt-doc-dept">${apt.department}</span>
