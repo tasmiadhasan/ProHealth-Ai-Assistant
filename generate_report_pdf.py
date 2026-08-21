@@ -85,20 +85,30 @@ def build_progress_report_pdf():
     elements = []
 
     # ---------------- PAGE 1: COVER ----------------
-    elements.append(Spacer(1, 100))
+    elements.append(Spacer(1, 70))
     elements.append(Paragraph("<b>DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</b>", cover_sub))
-    elements.append(Spacer(1, 10))
+    elements.append(Spacer(1, 8))
     elements.append(Paragraph("<b>CSE440 Capstone Project</b>", cover_sub))
-    elements.append(Spacer(1, 40))
+    elements.append(Spacer(1, 30))
     elements.append(Paragraph("&lt;Project Progress Report&gt;", cover_sub))
     elements.append(Spacer(1, 8))
     elements.append(Paragraph("<b>ProHealth AI Assistant</b>", cover_title))
     elements.append(Paragraph("Intelligent Hospital Portal & Bio_ClinicalBERT Triage System", cover_sub))
-    elements.append(Spacer(1, 80))
+    elements.append(Spacer(1, 30))
+    
+    # Team Members Box on Cover Page
+    members_cover_text = (
+        "<b>Project Team Members:</b><br/>"
+        "<b>1. Tasmiad Hasan</b> — ID: 2223017042 (Lead AI/ML Engineer & PM)<br/>"
+        "<b>2. Al Mamun Oualid</b> — ID: 2312850642 (Data & Backend Engineer)<br/>"
+        "<b>3. S M Tazbid Siddiqui</b> — ID: 2321986042 (Frontend UI/UX & QA)"
+    )
+    elements.append(Paragraph(members_cover_text, ParagraphStyle('CoverTeam', parent=styles['Normal'], fontName='Helvetica', fontSize=10, leading=16, textColor=dark_text, alignment=1)))
+    elements.append(Spacer(1, 40))
     elements.append(Paragraph("<b>Date:</b> August 16, 2026", cover_sub))
     elements.append(Spacer(1, 4))
     elements.append(Paragraph("<b>Doc. Version:</b> 1.0.0", cover_sub))
-    elements.append(Spacer(1, 120))
+    elements.append(Spacer(1, 50))
     elements.append(Paragraph("<font size=8 color='#94A3B8'>Template Version: 3.0.1</font>", ParagraphStyle('Tmp', alignment=1)))
     elements.append(PageBreak())
 
@@ -108,10 +118,10 @@ def build_progress_report_pdf():
         [Paragraph("<b>Settings</b>", th_style), Paragraph("<b>Value</b>", th_style)],
         [Paragraph("Document Title:", body_bold), Paragraph("Project Progress Report", cell_style)],
         [Paragraph("Project Title:", body_bold), Paragraph("ProHealth AI Assistant — Bio_ClinicalBERT Triage Portal", cell_style)],
-        [Paragraph("Document Author:", body_bold), Paragraph("Tasmiad Hasan", cell_style)],
+        [Paragraph("Document Authors:", body_bold), Paragraph("Tasmiad Hasan (2223017042), Al Mamun Oualid (2312850642), S M Tazbid Siddiqui (2321986042)", cell_style)],
         [Paragraph("Project Owner (PO):", body_bold), Paragraph("Department of Computer Science & Engineering", cell_style)],
-        [Paragraph("Project Manager (PM):", body_bold), Paragraph("Tasmiad Hasan", cell_style)],
-        [Paragraph("Other Members:", body_bold), Paragraph("Project Core Team (PCT)", cell_style)],
+        [Paragraph("Project Manager (PM):", body_bold), Paragraph("Tasmiad Hasan (Student ID: 2223017042)", cell_style)],
+        [Paragraph("Core Team Members:", body_bold), Paragraph("Tasmiad Hasan (2223017042), Al Mamun Oualid (2312850642), S M Tazbid Siddiqui (2321986042)", cell_style)],
         [Paragraph("Doc. Version:", body_bold), Paragraph("1.0.0", cell_style)],
         [Paragraph("Date:", body_bold), Paragraph("August 16, 2026", cell_style)],
     ]
@@ -119,19 +129,19 @@ def build_progress_report_pdf():
     t_control.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), th_bg),
         ('GRID', (0, 0), (-1, -1), 0.5, table_border),
-        ('TOPPADDING', (0, 0), (-1, -1), 4),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+        ('TOPPADDING', (0, 0), (-1, -1), 3.5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3.5),
     ]))
     elements.append(t_control)
-    elements.append(Spacer(1, 14))
+    elements.append(Spacer(1, 12))
 
     elements.append(Paragraph("<b>Table of Contents</b>", h2))
     toc_data = [
         [Paragraph("<b>1. PROJECT OVERVIEW</b>", body_bold), Paragraph("<b>3</b>", cell_center)],
         [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;1.1. EXECUTIVE SUMMARY", cell_style), Paragraph("3", cell_center)],
-        [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;1.2. PROJECT STAKEHOLDERS", cell_style), Paragraph("3", cell_center)],
+        [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;1.2. PROJECT STAKEHOLDERS & TEAM MEMBERS", cell_style), Paragraph("3", cell_center)],
         [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;1.3. MILESTONES AND DELIVERABLES", cell_style), Paragraph("3", cell_center)],
-        [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;1.4. PROJECT PLAN (PER WORK PACKAGE)", cell_style), Paragraph("4", cell_center)],
+        [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;1.4. PROJECT PLAN & GANTT CHART", cell_style), Paragraph("4", cell_center)],
         [Paragraph("<b>2. PROJECT DETAILS</b>", body_bold), Paragraph("<b>4</b>", cell_center)],
         [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;2.1. SCOPE CHANGES", cell_style), Paragraph("4", cell_center)],
         [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;2.2. MAJOR RISKS AND ACTIONS TAKEN", cell_style), Paragraph("4", cell_center)],
@@ -159,37 +169,38 @@ def build_progress_report_pdf():
         "complaints (Pure Bengali, phonetic Banglish, and English) and maps them across <b>13 core medical specialties</b> with confidence probabilities. "
         "Simultaneously, a deterministic rule-based urgency triage evaluator identifies critical red-flag triggers across 3 levels (Emergency, Urgent, Routine). "
         "The application integrates Google Identity Services OAuth, interactive doctor booking, persistent database tracking, and ReportLab PDF referral tickets, "
-        "and is fully deployed live on <b>Render.com</b>."
+        "and is fully deployed live on <b>Vercel</b>."
     )
     elements.append(Paragraph(exec_summary, body))
-    elements.append(Spacer(1, 10))
+    elements.append(Spacer(1, 8))
 
-    elements.append(Paragraph("1.2. Project Stakeholders", h2))
+    elements.append(Paragraph("1.2. Project Stakeholders & Team Members", h2))
     stakeholders_data = [
-        [Paragraph("<b>Role / Field</b>", th_style), Paragraph("<b>Details</b>", th_style)],
-        [Paragraph("Project Due Date", body_bold), Paragraph("Final Evaluation / Capstone Submission 2026", cell_style)],
-        [Paragraph("Project Core Team (PCT)", body_bold), Paragraph("<b>Tasmiad Hasan</b> (Lead AI/ML Engineer & Full-Stack Developer)", cell_style)],
-        [Paragraph("Other Stakeholders", body_bold), Paragraph("Course Supervisors, Evaluation Board, Clinical Consultants", cell_style)],
+        [Paragraph("<b>Role / Field</b>", th_style), Paragraph("<b>Team Member / Details</b>", th_style), Paragraph("<b>Student ID</b>", th_style), Paragraph("<b>Key Responsibilities</b>", th_style)],
+        [Paragraph("Project Lead & PM", body_bold), Paragraph("<b>Tasmiad Hasan</b>", cell_style), Paragraph("2223017042", cell_center), Paragraph("AI/ML Architecture, Bio_ClinicalBERT Fine-Tuning & Vercel Deploy", cell_style)],
+        [Paragraph("Core Member", body_bold), Paragraph("<b>Al Mamun Oualid</b>", cell_style), Paragraph("2312850642", cell_center), Paragraph("Data Engineering, MTSamples Preprocessing & Backend API", cell_style)],
+        [Paragraph("Core Member", body_bold), Paragraph("<b>S M Tazbid Siddiqui</b>", cell_style), Paragraph("2321986042", cell_center), Paragraph("Frontend UI/UX, Bilingual Localization, PDF Slip & Testing", cell_style)],
+        [Paragraph("External Reviewers", body_bold), Paragraph("Course Supervisors & Evaluation Board", cell_style), Paragraph("—", cell_center), Paragraph("Capstone Review, Guidance & Final Examination", cell_style)],
     ]
-    t_stakeholders = Table(stakeholders_data, colWidths=[2.2 * inch, 4.8 * inch])
+    t_stakeholders = Table(stakeholders_data, colWidths=[1.4 * inch, 1.6 * inch, 1.0 * inch, 3.0 * inch])
     t_stakeholders.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), th_bg),
         ('GRID', (0, 0), (-1, -1), 0.5, table_border),
-        ('TOPPADDING', (0, 0), (-1, -1), 4),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+        ('TOPPADDING', (0, 0), (-1, -1), 3.5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3.5),
     ]))
     elements.append(t_stakeholders)
-    elements.append(Spacer(1, 10))
+    elements.append(Spacer(1, 8))
 
     elements.append(Paragraph("1.3. Milestones and Deliverables", h2))
     m_data = [
-        [Paragraph("<b>ID</b>", th_style), Paragraph("<b>Milestone Name</b>", th_style), Paragraph("<b>Target Date</b>", th_style), Paragraph("<b>Actual Date</b>", th_style), Paragraph("<b>Status</b>", th_style), Paragraph("<b>Comments</b>", th_style)],
-        [Paragraph("M1", cell_center), Paragraph("MTSamples Dataset Annotation", cell_style), Paragraph("10 Jul 2026", cell_center), Paragraph("10 Jul 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("13 clinical specialties mapped", cell_style)],
-        [Paragraph("M2", cell_center), Paragraph("Bio_ClinicalBERT Fine-Tuning", cell_style), Paragraph("20 Jul 2026", cell_center), Paragraph("20 Jul 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("77% accuracy / 1.00 F1 key", cell_style)],
-        [Paragraph("M3", cell_center), Paragraph("FastAPI Backend & Triage API", cell_style), Paragraph("28 Jul 2026", cell_center), Paragraph("28 Jul 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("Prediction & PDF endpoints", cell_style)],
-        [Paragraph("M4", cell_center), Paragraph("Web Portal & Bilingual I18N", cell_style), Paragraph("05 Aug 2026", cell_center), Paragraph("05 Aug 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("Bangla/English toggle & UI", cell_style)],
-        [Paragraph("M5", cell_center), Paragraph("Google Auth & User Dashboard", cell_style), Paragraph("12 Aug 2026", cell_center), Paragraph("12 Aug 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("GIS OAuth & persistence", cell_style)],
-        [Paragraph("M6", cell_center), Paragraph("PDF Referral & Cloud Deploy", cell_style), Paragraph("16 Aug 2026", cell_center), Paragraph("16 Aug 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("Live on Render.com", cell_style)],
+        [Paragraph("<b>ID</b>", th_style), Paragraph("<b>Milestone Name</b>", th_style), Paragraph("<b>Target Date</b>", th_style), Paragraph("<b>Actual Date</b>", th_style), Paragraph("<b>Status</b>", th_style), Paragraph("<b>Assigned</b>", th_style)],
+        [Paragraph("M1", cell_center), Paragraph("MTSamples Dataset Annotation", cell_style), Paragraph("10 Jul 2026", cell_center), Paragraph("10 Jul 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("Al Mamun Oualid", cell_style)],
+        [Paragraph("M2", cell_center), Paragraph("Bio_ClinicalBERT Fine-Tuning", cell_style), Paragraph("20 Jul 2026", cell_center), Paragraph("20 Jul 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("Tasmiad Hasan", cell_style)],
+        [Paragraph("M3", cell_center), Paragraph("FastAPI Backend & Triage API", cell_style), Paragraph("28 Jul 2026", cell_center), Paragraph("28 Jul 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("Al Mamun Oualid", cell_style)],
+        [Paragraph("M4", cell_center), Paragraph("Web Portal & Bilingual I18N", cell_style), Paragraph("05 Aug 2026", cell_center), Paragraph("05 Aug 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("S M Tazbid Siddiqui", cell_style)],
+        [Paragraph("M5", cell_center), Paragraph("Google Auth & User Dashboard", cell_style), Paragraph("12 Aug 2026", cell_center), Paragraph("12 Aug 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("Tasmiad Hasan", cell_style)],
+        [Paragraph("M6", cell_center), Paragraph("PDF Referral & Vercel Deploy", cell_style), Paragraph("16 Aug 2026", cell_center), Paragraph("16 Aug 2026", cell_center), Paragraph("<font color='#059669'><b>Achieved</b></font>", cell_center), Paragraph("All PCT Members", cell_style)],
     ]
     t_m = Table(m_data, colWidths=[0.4 * inch, 1.8 * inch, 0.9 * inch, 0.9 * inch, 0.9 * inch, 2.1 * inch])
     t_m.setStyle(TableStyle([
@@ -201,18 +212,41 @@ def build_progress_report_pdf():
     elements.append(t_m)
     elements.append(PageBreak())
 
-    # ---------------- PAGE 4: PLAN & SCOPE CHANGES ----------------
-    elements.append(Paragraph("1.4. Project Plan (per Work Progress)", h2))
-    plan_data = [
-        [Paragraph("<b>Work Package</b>", th_style), Paragraph("<b>Planned Start</b>", th_style), Paragraph("<b>Planned End</b>", th_style), Paragraph("<b>Actual Start</b>", th_style), Paragraph("<b>Actual End</b>", th_style), Paragraph("<b>Progress (%)</b>", th_style)],
-        [Paragraph("WP1: Data Engineering", cell_style), Paragraph("01 Jul 2026", cell_center), Paragraph("10 Jul 2026", cell_center), Paragraph("01 Jul 2026", cell_center), Paragraph("10 Jul 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
-        [Paragraph("WP2: Model Training (Colab)", cell_style), Paragraph("11 Jul 2026", cell_center), Paragraph("22 Jul 2026", cell_center), Paragraph("11 Jul 2026", cell_center), Paragraph("20 Jul 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
-        [Paragraph("WP3: Backend REST API", cell_style), Paragraph("23 Jul 2026", cell_center), Paragraph("30 Jul 2026", cell_center), Paragraph("23 Jul 2026", cell_center), Paragraph("28 Jul 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
-        [Paragraph("WP4: Web Portal & I18N", cell_style), Paragraph("31 Jul 2026", cell_center), Paragraph("08 Aug 2026", cell_center), Paragraph("31 Jul 2026", cell_center), Paragraph("05 Aug 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
-        [Paragraph("WP5: Auth, Dashboard & PDF", cell_style), Paragraph("09 Aug 2026", cell_center), Paragraph("15 Aug 2026", cell_center), Paragraph("09 Aug 2026", cell_center), Paragraph("14 Aug 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
-        [Paragraph("WP6: Cloud Deploy & QA", cell_style), Paragraph("15 Aug 2026", cell_center), Paragraph("17 Aug 2026", cell_center), Paragraph("15 Aug 2026", cell_center), Paragraph("16 Aug 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
+    # ---------------- PAGE 4: PLAN & GANTT CHART ----------------
+    elements.append(Paragraph("1.4. Project Plan & Gantt Chart", h1))
+    elements.append(Paragraph("<b>Project Execution Gantt Chart Timeline:</b>", h2))
+
+    # Visual Gantt Chart Table in PDF
+    gantt_chart_data = [
+        [Paragraph("<b>Work Package / Phase</b>", th_style), Paragraph("<b>Lead</b>", th_style), Paragraph("<b>Jul W1-2</b>", th_style), Paragraph("<b>Jul W3</b>", th_style), Paragraph("<b>Jul W4</b>", th_style), Paragraph("<b>Aug W1</b>", th_style), Paragraph("<b>Aug W2</b>", th_style), Paragraph("<b>Status</b>", th_style)],
+        [Paragraph("WP1: Data Engineering", cell_style), Paragraph("Al Mamun", cell_style), Paragraph("<font color='#0284C7'>■■■■■■■</font>", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("<font color='#059669'><b>Done</b></font>", cell_center)],
+        [Paragraph("WP2: BERT Fine-Tuning", cell_style), Paragraph("Tasmiad", cell_style), Paragraph("—", cell_center), Paragraph("<font color='#0284C7'>■■■■■■■</font>", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("<font color='#059669'><b>Done</b></font>", cell_center)],
+        [Paragraph("WP3: Backend REST API", cell_style), Paragraph("Al Mamun", cell_style), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("<font color='#0284C7'>■■■■■■■</font>", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("<font color='#059669'><b>Done</b></font>", cell_center)],
+        [Paragraph("WP4: Web Portal & I18N", cell_style), Paragraph("S M Tazbid", cell_style), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("<font color='#0284C7'>■■■■■■■</font>", cell_center), Paragraph("—", cell_center), Paragraph("<font color='#059669'><b>Done</b></font>", cell_center)],
+        [Paragraph("WP5: Auth & PDF Generator", cell_style), Paragraph("Tasmiad", cell_style), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("<font color='#0284C7'>■■■■■■■</font>", cell_center), Paragraph("<font color='#059669'><b>Done</b></font>", cell_center)],
+        [Paragraph("WP6: Vercel Cloud Deploy", cell_style), Paragraph("All PCT", cell_style), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("—", cell_center), Paragraph("<font color='#10B981'>■■■■■■■</font>", cell_center), Paragraph("<font color='#059669'><b>Done</b></font>", cell_center)],
     ]
-    t_plan = Table(plan_data, colWidths=[2.0 * inch, 1.0 * inch, 1.0 * inch, 1.0 * inch, 1.0 * inch, 1.0 * inch])
+    t_gantt = Table(gantt_chart_data, colWidths=[1.8 * inch, 0.9 * inch, 0.75 * inch, 0.75 * inch, 0.75 * inch, 0.75 * inch, 0.75 * inch, 0.55 * inch])
+    t_gantt.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), th_bg),
+        ('GRID', (0, 0), (-1, -1), 0.5, table_border),
+        ('TOPPADDING', (0, 0), (-1, -1), 3.5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3.5),
+    ]))
+    elements.append(t_gantt)
+    elements.append(Spacer(1, 10))
+
+    elements.append(Paragraph("<b>Detailed Work Package Schedule Breakdown:</b>", h2))
+    plan_data = [
+        [Paragraph("<b>Work Package</b>", th_style), Paragraph("<b>Assigned Lead</b>", th_style), Paragraph("<b>Planned Start</b>", th_style), Paragraph("<b>Planned End</b>", th_style), Paragraph("<b>Actual Start</b>", th_style), Paragraph("<b>Actual End</b>", th_style), Paragraph("<b>Progress</b>", th_style)],
+        [Paragraph("WP1: Data Engineering", cell_style), Paragraph("Al Mamun Oualid", cell_style), Paragraph("01 Jul 2026", cell_center), Paragraph("10 Jul 2026", cell_center), Paragraph("01 Jul 2026", cell_center), Paragraph("10 Jul 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
+        [Paragraph("WP2: Model Training (Colab)", cell_style), Paragraph("Tasmiad Hasan", cell_style), Paragraph("11 Jul 2026", cell_center), Paragraph("22 Jul 2026", cell_center), Paragraph("11 Jul 2026", cell_center), Paragraph("20 Jul 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
+        [Paragraph("WP3: Backend REST API", cell_style), Paragraph("Al Mamun Oualid", cell_style), Paragraph("23 Jul 2026", cell_center), Paragraph("30 Jul 2026", cell_center), Paragraph("23 Jul 2026", cell_center), Paragraph("28 Jul 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
+        [Paragraph("WP4: Web Portal & I18N", cell_style), Paragraph("S M Tazbid Siddiqui", cell_style), Paragraph("31 Jul 2026", cell_center), Paragraph("08 Aug 2026", cell_center), Paragraph("31 Jul 2026", cell_center), Paragraph("05 Aug 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
+        [Paragraph("WP5: Auth, Dashboard & PDF", cell_style), Paragraph("Tasmiad Hasan", cell_style), Paragraph("09 Aug 2026", cell_center), Paragraph("15 Aug 2026", cell_center), Paragraph("09 Aug 2026", cell_center), Paragraph("14 Aug 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
+        [Paragraph("WP6: Vercel Deploy & QA", cell_style), Paragraph("All PCT Members", cell_style), Paragraph("15 Aug 2026", cell_center), Paragraph("17 Aug 2026", cell_center), Paragraph("15 Aug 2026", cell_center), Paragraph("16 Aug 2026", cell_center), Paragraph("<b>100%</b>", cell_center)],
+    ]
+    t_plan = Table(plan_data, colWidths=[1.8 * inch, 1.4 * inch, 0.75 * inch, 0.75 * inch, 0.75 * inch, 0.75 * inch, 0.8 * inch])
     t_plan.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), th_bg),
         ('GRID', (0, 0), (-1, -1), 0.5, table_border),
